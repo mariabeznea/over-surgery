@@ -1,0 +1,50 @@
+//
+// TEXT
+// ----------------------------------------------------------------------
+
+.color-os-green-medium-dark {
+    color: #174432;
+}
+
+.color-os-green-light {
+    color: #82CEAF;
+}
+
+.color-os-green {
+    color: #41C48F;
+}
+
+a.color-os-green:hover {
+    color: #30916A;
+}
+
+.color-os-green-dark {
+    color: #2B443A;
+}
+
+.color-os-green-medium {
+    color: #30916A;
+}
+
+//
+// BACKGROUND
+// ----------------------------------------------------------------------
+.bg-os-green-medium-dark {
+    background: #174432;
+}
+
+.bg-os-green-light {
+    background: #82CEAF;
+}
+
+.bg-os-green {
+    background: #41C48F;
+}
+
+.bg-os-green-dark {
+    background: #2B443A;
+}
+
+.bg-os-green-medium {
+    background: #30916A;
+}
