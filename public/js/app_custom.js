@@ -16,7 +16,7 @@ overSurgery.config(function ($routeProvider) {
         })
     
          .when('/register', {
-                templateUrl: '/modules/new-user/register.html',
+                templateUrl: '/modules/register/registerView.html',
                 controller: 'resetController'
             })
 });
