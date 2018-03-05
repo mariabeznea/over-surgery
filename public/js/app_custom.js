@@ -6,7 +6,7 @@ overSurgery.config(function ($routeProvider) {
     $routeProvider
     
          .when('/', {
-            templateUrl: '/modules/login/homeView.html',
+            templateUrl: '/modules/login/loginView.html',
             controller: 'homeController'
         })
     
