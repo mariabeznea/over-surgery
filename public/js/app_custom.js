@@ -19,6 +19,10 @@ overSurgery.config(function ($routeProvider) {
              templateUrl: '/modules/register/registerView.html',
              controller: 'registerController'
          })
+
+         .otherwise({
+             redirectTo: '/'
+         })
 });
 
 
@@ -31,7 +35,7 @@ overSurgery.controller('resetController', ['$scope', function ($scope) {
     
 }]);
 
-overSurgery.controller('registerController', ['$scope', function ($scope) {
+overSurgery.controller('registerController', ['$scope', '$http', function ($scope, $http) {
     $scope.user = {
         email: null,
         password: null,
@@ -63,7 +67,16 @@ overSurgery.controller('registerController', ['$scope', function ($scope) {
         }
 
         // Do backend connection
-        console.log($scope.user)
+        console.log($scope.user);
+
+
+        $http.post('/api/patient', {email: $scope.user.email, password: $scope.user.password})
+            .then(function (response) {
+                console.log(response);
+            })
+            .then(function (response, status, headers, config ) {
+                console.log(response);
+            });
 
         // first backend validation is if all fields required are there (confirm password not needed)
         // second backend validation is if the email doesn't exist
