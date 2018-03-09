@@ -23,8 +23,6 @@ class AuthController extends Controller
             'date_of_birth' => 'required|date',
         ]);
 
-
-
         if ($validator->fails()) {
            return response()->json(['success'=> false, 'error'=> $validator->messages()], 400);
         }
@@ -35,13 +33,13 @@ class AuthController extends Controller
             //'remember_token' => bcrypt($request->input('remember_token')),
         ]);
 
-        $patient = Patient::create([
+        Patient::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'address' => $request->input('address'),
             'phone_number' =>$request->input('phone_number'),
             'date_of_birth' =>$request->input('date_of_birth'),
-            'user_id' => $user ->id,
+            'user_id' => $user->id,
         ]);
 
         return response()->json([

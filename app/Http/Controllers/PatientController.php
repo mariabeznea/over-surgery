@@ -7,7 +7,6 @@ use App\Patient;
 
 class PatientController extends Controller
 {
-    //
     public function index(){
         $patients = Patient:: all();
         return $patients;
@@ -38,5 +37,4 @@ class PatientController extends Controller
         $patient-> save();
         return $patient;
     }
-
 }

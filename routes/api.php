@@ -26,8 +26,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::get('logout', 'AuthController@logout');
 
 //Registration Routes...
-//Route::resource('/register', 'AuthController');
 Route::post('/register', 'AuthController@register');
-
 
 Route::resource('/patient', 'PatientController');
