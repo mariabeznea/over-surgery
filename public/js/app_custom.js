@@ -42,7 +42,9 @@ overSurgery.controller('registerController', ['$scope', '$http', function ($scop
         confirmPassword: null,
         firstName: null,
         lastName: null,
-        address: null
+        address: null,
+        phoneNumber: null,
+        dateOfBirth: null
     };
     $scope.emailError = false;
 
@@ -70,7 +72,7 @@ overSurgery.controller('registerController', ['$scope', '$http', function ($scop
         console.log($scope.user);
 
 
-        $http.post('/api/patient', {email: $scope.user.email, password: $scope.user.password})
+        $http.post('/api/register', {email: $scope.user.email, password: $scope.user.password})
             .then(function (response) {
                 console.log(response);
             })

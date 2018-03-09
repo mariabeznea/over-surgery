@@ -19,11 +19,13 @@ class PatientController extends Controller
     }
 
     public function store(Request $request){
-        $patient = Patient:: create([
+        $patient = Patient::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'address' => $request->input('address'),
-            'phone_number' =>$request->input('phone_number')
+            'phone_number' =>$request->input('phone_number'),
+            'date_of_birth' =>$request->input('date_of_birth'),
+            'user_id' =>$request->input('user_id'),
         ]);
         return $patient;
     }

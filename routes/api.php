@@ -13,9 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Authentication Routes...
+//Route::post('login', 'AuthController@login');
+//Route::post('recover', 'AuthController@recover');
+
+//Route::get('logout', 'AuthController@logout');
+
+//Registration Routes...
+//Route::resource('/register', 'AuthController');
+Route::post('/register', 'AuthController@register');
 
 
 Route::resource('/patient', 'PatientController');
