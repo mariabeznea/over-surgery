@@ -6,31 +6,31 @@ overSurgery.config(function ($routeProvider) {
     $routeProvider
     
          .when('/', {
-            templateUrl: '/modules/login/home.html',
+            templateUrl: '/modules/login/loginView.html',
             controller: 'homeController'
         })
     
          .when('/reset', {
-            templateUrl: '/modules/login/reset.html',
+            templateUrl: '/modules/login/resetView.html',
             controller: 'resetController'
         })
     
          .when('/register', {
-                templateUrl: '/modules/register/registerView.html',
-                controller: 'resetController'
-            })
+             templateUrl: '/modules/register/registerView.html',
+             controller: 'registerController'
+         })
+
+         .otherwise({
+             redirectTo: '/'
+         })
 });
 
 
 overSurgery.controller('homeController', ['$scope', function ($scope) {
-    
+
 }]);
 
 
 overSurgery.controller('resetController', ['$scope', function ($scope) {
-    
-}]);
-
-overSurgery.controller('registerController', ['$scope', function ($scope) {
     
 }]);
