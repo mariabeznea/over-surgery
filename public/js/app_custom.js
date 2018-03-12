@@ -4,7 +4,7 @@ var overSurgery = angular.module('overSurgery', ['ngRoute']);
 overSurgery.config(function ($routeProvider) {
    
     $routeProvider
-        .when('/', {
+        .when('/login', {
             templateUrl: '/modules/common/login/loginView.html',
             controller: 'loginController'
         })
@@ -16,7 +16,7 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/common/register/registerView.html',
             controller: 'registerController'
         })
-        .when('/home', {
+        .when('/', {
             templateUrl: '/modules/home/homeView.html',
             controller: 'homeController'
         })

@@ -31,7 +31,7 @@ overSurgery.controller('loginController', ['$scope', '$http', '$location', funct
         }).then(function (response) {
             localStorage.token = response.data.token;
             localStorage.user_type = response.data.user_type;
-            $location.path('/home');
+            $location.path('/');
         }, function (response) {
             if (response.data.error.email) {
                 $scope.emailError = response.data.error.email[0] || false;
