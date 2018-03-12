@@ -34,8 +34,8 @@
         <script src="https://code.angularjs.org/1.6.9/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.6.9/angular-route.min.js"></script> 
         <script src="/js/app_custom.js"></script>
-        <script src="/modules/login/loginController.js"></script>
-        <script src="/modules/register/registerController.js"></script>
+        <script src="/modules/common/login/loginController.js"></script>
+        <script src="/modules/common/register/registerController.js"></script>
         
     </body>
 </html>

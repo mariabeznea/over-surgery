@@ -5,15 +5,15 @@ overSurgery.config(function ($routeProvider) {
    
     $routeProvider
         .when('/', {
-            templateUrl: '/modules/login/loginView.html',
+            templateUrl: '/modules/common/login/loginView.html',
             controller: 'loginController'
         })
         .when('/reset', {
-            templateUrl: '/modules/login/resetView.html',
+            templateUrl: '/modules/common/resetPassword/resetPasswordView.html',
             controller: 'resetController'
         })
         .when('/register', {
-            templateUrl: '/modules/register/registerView.html',
+            templateUrl: '/modules/common/register/registerView.html',
             controller: 'registerController'
         })
         .when('/home', {
