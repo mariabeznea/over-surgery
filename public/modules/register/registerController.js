@@ -32,7 +32,7 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
         }
 
         // Do backend connection
-        $http.post('/api/register', {
+        $http.post('/api/auth/register', {
             email: $scope.user.email,
             password: $scope.user.password,
             first_name: $scope.user.firstName,
@@ -42,8 +42,8 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
             date_of_birth: moment($scope.user.dateOfBirth).format('YYYY-MM-DD')
         }).then(function () {
             $location.path('/');
-        }, function () {
-            $scope.emailError = true;
+        }, function (response) {
+            $scope.emailError = response.data.error.email[0] || false;
         });
     }
 }]);

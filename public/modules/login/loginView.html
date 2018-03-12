@@ -1,34 +1,39 @@
 <div class="container">
     <div class="row align-items-center mt-5">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-4 offset-md-4">
             <img src="images\logo3.png" class="card-img-top">
         </div>
     </div>
     <div class="row align-items-center">
-        <div class="col-md-6 offset-md-3 ">
+        <div class="col-md-4 offset-md-4">
             <div class="card">
                 <div class="card-body">
                     <form>
                         <div class="form-group">
                             <label for="loginEmail">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="example@email.com">
+                            <input type="email" ng-model= "user.email" class="form-control"
+                                   id="loginEmail" placeholder="example@email.com"
+                                   ng-class="{ 'border-danger': emailError }"
+                                   ng-change="emailError = false"
+                                   required>
+                            <small ng-if="emailError" class="form-text text-danger">
+                                {{emailError}}
+                            </small>
                         </div>
                         <div class="form-group">
                             <label for="loginPassword">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                            <input type="password" ng-model="user.password" class="form-control"
+                                   id="loginPassword" placeholder="Password" required>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-8">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="rememberMe">
-                                    <label for="rememberMe">Remember me</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-12 mb-2 text-right">
                                 <a href="#!/reset" class="color-os-green">Forgot password?</a>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-os-green btn-lg btn-block">Log in</button>
+                        <small ng-if="genericError" class="form-text text-danger text-center mb-4">
+                            {{genericError}}
+                        </small>
+                        <button type="submit" ng-click="loginUser()" class="mt-2 btn btn-primary btn-os-green btn-lg btn-block">Log in</button>
                         <div class="form-group text-center">
                             <a href="#!/register" class="btn btn-link mt-sm-3">New user? Sign up</a>
                         </div>
