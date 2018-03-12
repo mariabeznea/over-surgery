@@ -7,6 +7,7 @@ use App\User;
 use App\Patient;
 use App\Staff;
 
+use \stdClass;
 use Illuminate\Support\Facades\App;
 use Validator;
 use JWTAuth;
@@ -30,7 +31,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-           return response()->json(['success'=> false, 'error'=> $validator->messages()], 400);
+           return response()->json(['success' => false, 'error' => $validator->messages()], 400);
         }
 
         // Add user & patient
@@ -49,13 +50,29 @@ class AuthController extends Controller
             'user_id' => $user->id,
         ]);
 
+        // Create token
+        $token = $this->createToken($request-> only('email', 'password'));
+        if ($token->success === false) {
+            return response()->json([
+                'success' => false,
+                'error' => [
+                    'generic' => $token->message
+                ]
+            ], 400);
+        }
+
+        // Save token
+        $this->saveToken(Auth::user()->id, $token->token);
+
+        // TODO: user can also be a staff but is not coded yet
         return response()->json([
-            'status' => 'success',
-            'message'=> 'User created successfully.'
+            'success' => true,
+            'token' => $token->token,
+            'user_type' => 'patient'
         ], 200);
     }
 
-    public function login(Request $request){
+    public function login(Request $request) {
 
         $credentials = $request-> only('email', 'password');
 
@@ -69,36 +86,56 @@ class AuthController extends Controller
             return response()->json(['success'=> false, 'error'=> $validator->messages()], 400);
         }
 
-        try {
-            // Attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json([
-                    'success' => false,
-                    'error' => [
-                        'generic' => 'There is no user with these credentials.'
-                    ]
-                ],400);
-            }
-        } catch (JWTException $e) {
-            // Something went wrong whilst attempting to encode the token
+        // Create token
+        $token = $this->createToken($credentials);
+        if ($token->success === false) {
             return response()->json([
                 'success' => false,
                 'error' => [
-                    'generic' => 'Something went wrong, please try again.'
+                    'generic' => $token->message
                 ]
-            ],500);
+            ], 400);
         }
 
         // Save token
-        $user = User::find(Auth::user()->id);
-        $user->remember_token = $token;
-        $user->save();
+        $this->saveToken(Auth::user()->id, $token->token);
 
         // TODO: use eloquent to find user type
         return response()->json([
             'success' => true,
-            'token' => $token,
-            'user_type' => (Staff::where('user_id', '=', $user->id)->first() !== null ? 'staff' : 'patient')
+            'token' => $token->token,
+            'user_type' => (Staff::where('user_id', '=', Auth::user()->id)->first() !== null ? 'staff' : 'patient')
         ], 200);
+    }
+
+    private function createToken(array $credentials)
+    {
+        // Create anonymous object
+        $result = new stdClass();
+
+        try {
+            // Attempt to verify the credentials and create a token for the user
+            if (!$token = JWTAuth::attempt($credentials)) {
+                $result->success = false;
+                $result->message = 'There is no user with these credentials.';
+                return $result;
+            }
+        } catch (JWTException $e) {
+            // Something went wrong whilst attempting to encode the token
+            $result->success = false;
+            $result->message = 'Something went wrong, please try again.';
+            return $result;
+        }
+
+        // Return successful result
+        $result->success = true;
+        $result->token = $token;
+        return $result;
+    }
+
+    private function saveToken(string $user_id, string $token) {
+        $user = User::find($user_id);
+        $user->remember_token = $token;
+        $user->save();
     }
 }

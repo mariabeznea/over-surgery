@@ -40,8 +40,10 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
             address: $scope.user.address,
             phone_number: $scope.user.phoneNumber,
             date_of_birth: moment($scope.user.dateOfBirth).format('YYYY-MM-DD')
-        }).then(function () {
-            $location.path('/login');
+        }).then(function (response) {
+            localStorage.token = response.data.token;
+            localStorage.user_type = response.data.user_type;
+            $location.path('/');
         }, function (response) {
             $scope.emailError = response.data.error.email[0] || false;
         });
