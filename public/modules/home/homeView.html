@@ -1,9 +1,16 @@
-<nav class="navbar navbar-dark sticky-top bg-dark p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Over Surgery</a>
-    <div class="justify-content-between px-3">
-        <span class="color-os-green text-decoration-none mr-4" href="#">Hi, Filipe</span>
-        <a class="color-os-green text-decoration-none mr-4" href="#">Account</a>
-        <a class="color-os-green text-decoration-none" href="#">Log out</a>
+<nav class="navbar navbar-dark sticky-top bg-os-green p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+       Over Surgery
+        <!--<img src="images\logo3.png" alt="">-->
+    </a>
+    <div class="justify-content-between px-3 ">
+        <span class="text-white  text-decoration-none mr-4" href="#">Hi, {{first_name}}</span>
+        <a class="text-white text-decoration-none mr-4" href="#">
+            <span data-feather="user"></span>
+            Account</a>
+        <a class="text-white text-decoration-none" href="#">Log out
+            <span data-feather="log-out"></span>
+        </a>
     </div>
 </nav>
 
@@ -22,8 +29,24 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
+                            <i data-feather="clock"></i>
+                            Availability
+                        </a>
+                        <a class="nav-link" href="#">
+                            <span data-feather="calendar"></span>
+                            Appointments
+                        </a>
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Prescriptions
+                        </a>
+                        <a class="nav-link" href="#">
                             <span data-feather="file"></span>
-                            Orders
+                            Medication
+                        </a>
+                        <a class="nav-link" href="#">
+                            <span data-feather="activity"></span>
+                            Test Results
                         </a>
                     </li>
                 </ul>
@@ -35,6 +58,10 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                 <h1 class="h2">Home</h1>
             </div>
+            <!--<div ng-repeat="patient in patients">{{patient.first_name}}</div>-->
         </main>
     </div>
 </div>
+<script>
+    feather.replace()
+</script>
