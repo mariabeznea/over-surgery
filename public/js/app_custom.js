@@ -10,7 +10,7 @@ overSurgery.config(function ($routeProvider) {
         })
         .when('/reset', {
             templateUrl: '/modules/common/resetPassword/resetPasswordView.html',
-            controller: 'resetController'
+            controller: 'resetPasswordController'
         })
         .when('/register', {
             templateUrl: '/modules/common/register/registerView.html',
@@ -24,13 +24,3 @@ overSurgery.config(function ($routeProvider) {
             redirectTo: '/'
         })
 });
-
-
-overSurgery.controller('homeController', ['$scope', function ($scope) {
-
-}]);
-
-
-overSurgery.controller('resetController', ['$scope', function ($scope) {
-    
-}]);
