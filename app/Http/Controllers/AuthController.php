@@ -41,7 +41,8 @@ class AuthController extends Controller
             //'remember_token' => bcrypt($request->input('remember_token')),
         ]);
 
-        Patient::create([
+        // TODO: only registering patients, needs code for staff
+        $patient = Patient::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'address' => $request->input('address'),
@@ -62,13 +63,16 @@ class AuthController extends Controller
         }
 
         // Save token
-        $this->saveToken(Auth::user()->id, $token->token);
+        $user = $this->saveToken(Auth::user()->id, $token->token);
 
         // TODO: user can also be a staff but is not coded yet
+        // TODO: code is only prepared to send patients back, will need for staff too
         return response()->json([
             'success' => true,
             'token' => $token->token,
-            'user_type' => 'patient'
+            'user_type' => 'patient',
+            'user' => $user,
+            'patient' => $patient
         ], 200);
     }
 
@@ -98,13 +102,19 @@ class AuthController extends Controller
         }
 
         // Save token
-        $this->saveToken(Auth::user()->id, $token->token);
+        $user = $this->saveToken(Auth::user()->id, $token->token);
+
+        // TODO: use eloquent to get user info from patient or staff
+        // TODO: at the moment, only receives patient, will need work to login as a staff
+        $patient = Patient::where('user_id', '=', $user->id)->first();
 
         // TODO: use eloquent to find user type
         return response()->json([
             'success' => true,
             'token' => $token->token,
-            'user_type' => (Staff::where('user_id', '=', Auth::user()->id)->first() !== null ? 'staff' : 'patient')
+            'user_type' => (Staff::where('user_id', '=', Auth::user()->id)->first() !== null ? 'staff' : 'patient'),
+            'user' => $user,
+            'patient' => $patient
         ], 200);
     }
 
@@ -137,5 +147,6 @@ class AuthController extends Controller
         $user = User::find($user_id);
         $user->remember_token = $token;
         $user->save();
+        return $user;
     }
 }
