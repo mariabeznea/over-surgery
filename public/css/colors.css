@@ -3,6 +3,7 @@
 
 .color-os-green-medium-dark {
     color: #174432;
+
 }
 
 .color-os-green-light {
@@ -24,7 +25,9 @@ a.color-os-green:hover {
 .color-os-green-medium {
     color: #30916A;
 }
-
+.color-os-grey {
+    color:#bdbdbd;
+}
 
 /* BACKGROUND
 ----------------------------------------------------------------------*/

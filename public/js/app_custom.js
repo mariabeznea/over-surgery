@@ -4,33 +4,23 @@ var overSurgery = angular.module('overSurgery', ['ngRoute']);
 overSurgery.config(function ($routeProvider) {
    
     $routeProvider
-    
-         .when('/', {
-            templateUrl: '/modules/login/loginView.html',
+        .when('/login', {
+            templateUrl: '/modules/common/login/loginView.html',
+            controller: 'loginController'
+        })
+        .when('/reset', {
+            templateUrl: '/modules/common/resetPassword/resetPasswordView.html',
+            controller: 'resetPasswordController'
+        })
+        .when('/register', {
+            templateUrl: '/modules/common/register/registerView.html',
+            controller: 'registerController'
+        })
+        .when('/', {
+            templateUrl: '/modules/home/homeView.html',
             controller: 'homeController'
         })
-    
-         .when('/reset', {
-            templateUrl: '/modules/login/resetView.html',
-            controller: 'resetController'
+        .otherwise({
+            redirectTo: '/'
         })
-    
-         .when('/register', {
-             templateUrl: '/modules/register/registerView.html',
-             controller: 'registerController'
-         })
-
-         .otherwise({
-             redirectTo: '/'
-         })
 });
-
-
-overSurgery.controller('homeController', ['$scope', function ($scope) {
-
-}]);
-
-
-overSurgery.controller('resetController', ['$scope', function ($scope) {
-    
-}]);

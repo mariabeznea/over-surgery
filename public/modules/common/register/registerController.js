@@ -32,7 +32,7 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
         }
 
         // Do backend connection
-        $http.post('/api/register', {
+        $http.post('/api/auth/register', {
             email: $scope.user.email,
             password: $scope.user.password,
             first_name: $scope.user.firstName,
@@ -40,10 +40,20 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
             address: $scope.user.address,
             phone_number: $scope.user.phoneNumber,
             date_of_birth: moment($scope.user.dateOfBirth).format('YYYY-MM-DD')
-        }).then(function () {
+        }).then(function (response) {
+            localStorage.token = response.data.token;
+            localStorage.user_type = response.data.user_type;
+            localStorage.email = response.data.user.email;
+            localStorage.user_id = response.data.user.id;
+
+            // TODO: will need code for saving staff info on localstorage
+            // TODO: at the moment, only does for patient
+            localStorage.first_name = response.data.patient.first_name;
+            localStorage.last_name = response.data.patient.last_name;
+
             $location.path('/');
-        }, function () {
-            $scope.emailError = true;
+        }, function (response) {
+            $scope.emailError = response.data.error.email[0] || false;
         });
     }
 }]);

@@ -13,19 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::get('auth/user', 'AuthController@user');
+});
 
 // Authentication Routes...
-//Route::post('login', 'AuthController@login');
+Route::post('auth/login', 'AuthController@login');
 //Route::post('recover', 'AuthController@recover');
 
 //Route::get('logout', 'AuthController@logout');
 
 //Registration Routes...
-Route::post('/register', 'AuthController@register');
+Route::post('auth/register', 'AuthController@register');
 
 Route::resource('/patient', 'PatientController');
