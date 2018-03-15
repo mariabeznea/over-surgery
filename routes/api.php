@@ -31,3 +31,7 @@ Route::post('auth/login', 'AuthController@login');
 Route::post('auth/register', 'AuthController@register');
 
 Route::resource('/patient', 'PatientController');
+
+
+//TODO: organize routes to show only the needed functions ex: ['only' => ['index', 'show']];
+Route::resource('/availability', 'ShiftController');
