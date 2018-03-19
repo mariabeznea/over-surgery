@@ -49,6 +49,11 @@ class AppointmentController extends Controller
         //
     }
 
+    public function showByDateStaff($date, $staff_id)
+    {
+        return Appointment::where([['date', $date], ['staff_id', $staff_id]])->get();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

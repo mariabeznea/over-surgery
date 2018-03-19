@@ -49,6 +49,16 @@ class ShiftController extends Controller
         //
     }
 
+    public function showByDate($date)
+    {
+        return Shift::where('date', $date)->get();
+    }
+
+    public function showByDateStaff($date, $staff_id)
+    {
+        return Shift::where([['date', $date], ['staff_id', $staff_id]])->first();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -3,13 +3,35 @@
 <!-- Main content -->
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <!--<div ng-repeat="patient in patients">{{patient.first_name}}</div>-->
-    <div id="card-availability" class="card" style="width: 18rem;">
+    <div id="card-availability" class="card col-md-6" >
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h5 class="card-title">Availability</h5>
+            </div>
+            <div class="form">
+                <div class="form-row mt-5">
+                    <div class="col-sm-2">
+                        <label for="search-form" class="col-form-label font-weight-bold">Search by</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="date" ng-model="shift.date" class="form-control" id="search-form" required>
+                    </div>
+                    <div class="col-sm-5">
+                        <select id="staff-select" class="form-control js-placeholder-single .select2-container.form-control">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="card col-md-6" ng-repeat="staff in staffOnShift" ng-click="clickStaff(staff.id)">
+        <span><b>{{staff.staff_type_id === 1 ? 'Doctor ' : 'Nurse '}}</b> {{staff.text}}</span>
+        <span><b>Phone: </b>{{staff.phone_number}}</span>
+    </div>
+    <div class="card col-md-6" ng-if="staffAvailability.length">
+        <span ng-repeat="slot in staffAvailability">
+            {{slot.start}} - {{slot.end}} : {{slot.status}}
+        </span>
     </div>
 </main>

@@ -34,4 +34,14 @@ Route::resource('/patient', 'PatientController');
 
 
 //TODO: organize routes to show only the needed functions ex: ['only' => ['index', 'show']];
-Route::resource('/availability', 'ShiftController');
+// Shift routes
+Route::get('/shift/date/{date}', 'ShiftController@showByDate');
+Route::get('/shift/date/{date}/staff/{staff}', 'ShiftController@showByDateStaff');
+Route::resource('/shift', 'ShiftController');
+
+// Appointment routes
+Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff');
+
+
+Route::resource('/staff', 'StaffController');
+

@@ -14,7 +14,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        return Staff::all();
     }
 
     /**
@@ -44,9 +44,9 @@ class StaffController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function show(Staff $staff)
+    public function show($id)
     {
-        //
+        return Staff::find($id);
     }
 
     /**
