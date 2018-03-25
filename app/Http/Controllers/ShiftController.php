@@ -56,6 +56,7 @@ class ShiftController extends Controller
 
     public function showByDateStaff($date, $staff_id)
     {
+        //TODO: try with Model::findMany([])
         return Shift::where([['date', $date], ['staff_id', $staff_id]])->first();
     }
 

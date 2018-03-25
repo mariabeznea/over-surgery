@@ -20,6 +20,7 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
                     $scope.staff.push({
                         id: staff.id,
                         text: staff.first_name + ' ' + staff.last_name,
+                        address: staff.address,
                         phone_number: staff.phone_number,
                         staff_type_id: staff.staff_type_id
                     });
@@ -29,9 +30,13 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
             // Putting options in the Select2 view
             $(document).ready(function () {
                 $('#staff-select').select2({
-                    placeholder: "Name",
+                    placeholder: "First and/or Last Name",
                     allowClear: true,
-                    data: $scope.staff
+                    data: $scope.staff,
+                    //height: 'resolve'
+                    //multiple: true,
+                    //maximumSelectionSize: 1
+
                 })
             });
         });
@@ -43,6 +48,9 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
             shiftByDateStaff(newValue, $scope.shift.staff_id);
             return;
         }
+        // Empty current array
+        $scope.staffOnShift = [];
+
         shiftByDate(newValue);
     });
 

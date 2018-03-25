@@ -2,36 +2,71 @@
 
 <!-- Main content -->
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <!--<div ng-repeat="patient in patients">{{patient.first_name}}</div>-->
-    <div id="card-availability" class="card col-md-6" >
+    <div id="card-availability" class="card col-md-12" >
         <div class="card-body">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h5 class="card-title">Availability</h5>
+                <h5 class="card-title">Find GP/nurse's availability</h5>
             </div>
             <div class="form">
-                <div class="form-row mt-5">
-                    <div class="col-sm-2">
-                        <label for="search-form" class="col-form-label font-weight-bold">Search by</label>
+                <div class="form-row mt-5 mb-5">
+                    <div class="col-md-2">
+                        <p class="col-form-label font-weight-bold">Search by</p>
                     </div>
-                    <div class="col-sm-5">
-                        <input type="date" ng-model="shift.date" class="form-control" id="search-form" required>
+                    <div class="col-xs-1">
+                        <label for="date-select" class="col-form-label">Date</label>
                     </div>
-                    <div class="col-sm-5">
-                        <select id="staff-select" class="form-control js-placeholder-single .select2-container.form-control">
+                    <div class="col-md-3">
+                        <input type="date" ng-model="shift.date" class="form-control" id="date-select" required>
+                    </div>
+                    <div class="col-xs-1 offset-1">
+                        <label for="staff-select" class="col-form-label">Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="staff-select" class="form-control js-placeholder-single">
                             <option></option>
                         </select>
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 " ng-repeat="staff in staffOnShift" ng-click="clickStaff(staff.id)">
+                <hr>
+                <h5><b>{{staff.staff_type_id === 1 ? 'Doctor ' : 'Nurse '}}</b> {{staff.text}}</h5>
+               <div class="col-xs-12">
+                   <span data-feather="map-pin" class="mt-1"></span> {{staff.address}}
+               </div>
+                <div class="col-xs-12">
+                    <span data-feather="phone" class="font-weight-bold "></span> {{staff.phone_number}}
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+            <div class="col-md-6">
+                <table class="table" ng-if="staffAvailability.length">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col" style="width: 80px">Hrs</th>
+                        <th scope="col">Availability</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="slot in staffAvailability">
+                        <tr >
+                            <!--TODO: align hours top and fix the slot.end as well-->
+                            <th  valign="top" scope="row">{{slot.start}}:00</th>
+                            <td>{{slot.status}}</td>
+                            <!--TODO: put colors to status column-->
+                            <!--<td ng-if="slot.status === 'occupied'" class="table-danger">{{slot.status}}</td>-->
+                            <!--{{slot.start}} - {{slot.end}} : {{slot.status}}-->
+                        </tr>
+                        <!--<tr>-->
+                            <!--<th scope="row">{{slot.end}}</th>-->
+                            <!--<td>{{slot.status}}</td>-->
+                        <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
         </div>
     </div>
-    <div class="card col-md-6" ng-repeat="staff in staffOnShift" ng-click="clickStaff(staff.id)">
-        <span><b>{{staff.staff_type_id === 1 ? 'Doctor ' : 'Nurse '}}</b> {{staff.text}}</span>
-        <span><b>Phone: </b>{{staff.phone_number}}</span>
-    </div>
-    <div class="card col-md-6" ng-if="staffAvailability.length">
-        <span ng-repeat="slot in staffAvailability">
-            {{slot.start}} - {{slot.end}} : {{slot.status}}
-        </span>
-    </div>
 </main>
+<script>
+    feather.replace()
+</script>
