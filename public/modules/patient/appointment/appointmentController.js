@@ -207,8 +207,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
     $scope.putAppointment = function () {
         $scope.clickedUpdate = true;
         $scope.msgErrorUpdate = false;
-
-
+        
         $scope.staff.forEach(function (staff){
             if ($scope.editAppointment.staff_id == staff.id) {
                 $scope.editAppointment.location = staff.address;
