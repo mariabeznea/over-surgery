@@ -22,4 +22,9 @@ class Patient extends Model
     public function user(){
         return $this->belongsTo("app\User");
     }
+
+    public function appointments()
+    {
+        return $this->hasMany("app\Appointment");
+    }
 }

@@ -30,4 +30,21 @@ Route::post('auth/login', 'AuthController@login');
 //Registration Routes...
 Route::post('auth/register', 'AuthController@register');
 
+// Patient routes
 Route::resource('/patient', 'PatientController');
+
+
+//TODO: organize routes to show only the needed functions ex: ['only' => ['index', 'show']];
+// Shift routes
+Route::get('/shift/date/{date}', 'ShiftController@showByDate');
+Route::get('/shift/date/{date}/staff/{staff}', 'ShiftController@showByDateStaff');
+Route::resource('/shift', 'ShiftController');
+
+// Appointment routes
+Route::get('/patient/{id}/appointment','AppointmentController@index');
+Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff');
+Route::resource('/appointment', 'AppointmentController');
+
+// Staff routes
+Route::resource('/staff', 'StaffController');
+

@@ -20,6 +20,14 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/home/homeView.html',
             controller: 'homeController'
         })
+        .when('/availability', {
+            templateUrl: '/modules/patient/availability/availabilityView.html',
+            controller: 'availabilityController'
+        })
+        .when('/appointment', {
+            templateUrl: '/modules/patient/appointment/appointmentView.html',
+            controller: 'appointmentController'
+        })
         .otherwise({
             redirectTo: '/'
         })
