@@ -1,0 +1,41 @@
+<side-bar first-name="{{first_name}}" prescriptions="true"></side-bar>
+
+<!-- Main content -->
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Prescriptions</h1>
+    </div>
+    <div class="col-md-12 mt-5">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Medication</th>
+                <th scope="col">Dose</th>
+                <th scope="col">Expiration</th>
+                <th scope="col">Renewable</th>
+                <th scope="col">Action</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <!--<tbody class="table-light" ng-repeat="appointment in appointments">-->
+            <!--<tr>-->
+                <!--<th scope="row">{{appointment.date}}</th>-->
+                <!--<td>{{appointment.start_hours}} - {{appointment.end_hours}}</td>-->
+                <!--<td>{{appointment.name}}</td>-->
+                <!--<td>{{appointment.location}}</td>-->
+                <!--<td>{{appointment.notes}}</td>-->
+                <!--<td>-->
+                    <!--<a href="" data-toggle="modal" data-target="#editModal" ng-click="updateAppointment(appointment)">-->
+                        <!--<span data-feather="edit-3" class="font-weight-bold mr-2" ></span>-->
+                    <!--</a>-->
+                    <!--<span data-feather="x-square" class="font-weight-bold" ng-click="deleteAppointment(appointment)"></span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        </table>
+        <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+        <!--<button type="submit" class="mt-4 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">-->
+            <!--Book appointment-->
+        <!--</button>-->
+    </div>
+</main>

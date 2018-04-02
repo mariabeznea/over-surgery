@@ -47,6 +47,7 @@
         <script src="/modules/home/homeController.js"></script>
         <script src="/modules/patient/availability/availabilityController.js"></script>
         <script src="/modules/patient/appointment/appointmentController.js"></script>
+        <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/directives/sidebarDirective.js"></script>
 
     </body>
