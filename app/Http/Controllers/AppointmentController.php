@@ -19,7 +19,6 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      * Display all appointments for a patient
      **/
-
     public function index($patient_id)
     {
         return Appointment::ofPatient($patient_id)->orderBy('date', 'desc')->get();
