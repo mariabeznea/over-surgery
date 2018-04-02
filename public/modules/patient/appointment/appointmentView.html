@@ -102,6 +102,9 @@
                     <h6 ng-if="success" class="form-text text-success">
                         Booking appointment was successful!
                     </h6>
+                    <h6 ng-if="msgError" class="form-text text-danger">
+                        Something went wrong. Please try again!
+                    </h6>
                 </form>
             </div>
             <div class="modal-footer">
@@ -173,6 +176,9 @@
                     </div>
                     <h6 ng-if="successfulUpdate" class="form-text text-success">
                         Updating appointment was successful!
+                    </h6>
+                    <h6 ng-if="msgErrorUpdate" class="form-text text-danger">
+                        Something went wrong. Please try again!
                     </h6>
                 </form>
             </div>

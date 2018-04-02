@@ -6,7 +6,6 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
     $scope.staffAvailability = [];
     $scope.appointments = [];
 
-
     $scope.newAppointment = {
         staff_id: '',
         date: new Date(),
@@ -167,6 +166,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     $scope.bookAppointment = function () {
         $scope.clicked = true;
+        $scope.msgError = false;
 
         $scope.staff.forEach(function (staff){
             if ($scope.newAppointment.staff_id == staff.id) {
@@ -175,7 +175,6 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         });
         var start = ($scope.newAppointment.start_hours < 10 ? '0':'') + $scope.newAppointment.start_hours + ':00:00';
         var end = ($scope.newAppointment.start_hours < 9 ? '0' : '') + (parseInt($scope.newAppointment.start_hours) + 1) + ':00:00';
-
 
         var noEmptyFields = true;
         $scope.success = false;
@@ -201,15 +200,14 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
             $scope.newAppointment = {};
 
         }, function (response) {
-            // console.log(response.data.error.start_hours[0]);
-            // $scope.staffError = response.data.error.staff_id[0] || false;
-            // $scope.dateError = response.data.error.date[0] || false;
-            // $scope.hoursError = response.data.error.start_hours[0] || false;
+            $scope.msgError = true;
         });
     };
 
     $scope.putAppointment = function () {
         $scope.clickedUpdate = true;
+        $scope.msgErrorUpdate = false;
+
 
         $scope.staff.forEach(function (staff){
             if ($scope.editAppointment.staff_id == staff.id) {
@@ -218,7 +216,6 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         });
         var start = ($scope.editAppointment.start_hours < 10 ? '0':'') + $scope.editAppointment.start_hours + ':00:00';
         var end = ($scope.editAppointment.start_hours < 9 ? '0' : '') + (parseInt($scope.editAppointment.start_hours) + 1) + ':00:00';
-
 
         var noEmptyFields = true;
         $scope.success = false;
@@ -245,6 +242,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
             location.reload();
         }, function (response) {
+            $scope.msgErrorUpdate = true;
 
         });
     };
@@ -252,7 +250,6 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
     $scope.updateAppointment = function (appointment) {
         $scope.reset();
 
-        console.log(appointment);
         $scope.editAppointment.id = appointment.id;
         $scope.editAppointment.date = new Date(appointment.date);
 

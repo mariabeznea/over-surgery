@@ -33,10 +33,6 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
                     placeholder: "First and/or Last Name",
                     allowClear: true,
                     data: $scope.staff,
-                    //height: 'resolve'
-                    //multiple: true,
-                    //maximumSelectionSize: 1
-
                 })
             });
         });
