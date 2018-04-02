@@ -33,6 +33,8 @@ Route::post('auth/register', 'AuthController@register');
 // Patient routes
 Route::resource('/patient', 'PatientController');
 
+// Staff routes
+Route::resource('/staff', 'StaffController');
 
 //TODO: organize routes to show only the needed functions ex: ['only' => ['index', 'show']];
 // Shift routes
@@ -45,6 +47,10 @@ Route::get('/patient/{id}/appointment','AppointmentController@index');
 Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff');
 Route::resource('/appointment', 'AppointmentController');
 
-// Staff routes
-Route::resource('/staff', 'StaffController');
+//Prescription routes
+Route::get('/patient/{id}/prescription','PrescriptionController@index');
+Route::resource('/prescription', 'PrescriptionController');
+
+
+
 
