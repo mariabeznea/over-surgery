@@ -273,14 +273,13 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         if(confirmCancel){
             $http.delete('/api/appointment/' + appointment.id)
                 .then(function (response) {
-                console.log(response.data);
                 alert('Appointment cancelled succesfully!');
                 location.reload();
                 }, function (response) {
-
+                alert('Something went wrong. Please try again!');
                 });
         }
     }
-
     init();
 }]);
+

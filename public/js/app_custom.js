@@ -32,6 +32,10 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/patient/prescription/prescriptionView.html',
             controller: 'prescriptionController'
         })
+        .when('/test_result', {
+            templateUrl: '/modules/patient/test_result/test_resultView.html',
+            controller: 'test_resultController'
+        })
         .otherwise({
             redirectTo: '/'
         })

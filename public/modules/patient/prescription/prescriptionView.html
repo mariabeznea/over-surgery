@@ -23,8 +23,8 @@
                 <td>{{prescription.dose}} mg</td>
                 <td>{{prescription.expiration_date}}</td>
                 <td>
-                    <span ng-if="prescription.renewable == 1" data-feather="check" class="font-weight-bold ml-3" ></span>
-                    <span ng-if="prescription.renewable != 1" data-feather="x" class="font-weight-bold ml-3"></span>
+                    <span ng-if="prescription.renewable == 1" data-feather="check" class="font-weight-bold ml-3 color-os-green-medium" ></span>
+                    <span ng-if="prescription.renewable != 1" data-feather="x" class="font-weight-bold ml-3 text-danger"></span>
                 </td>
                 <td>{{prescription.status}}</td>
                 <td>

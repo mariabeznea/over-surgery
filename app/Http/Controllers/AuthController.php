@@ -107,6 +107,11 @@ class AuthController extends Controller
         // TODO: use eloquent to get user info from patient or staff
         // TODO: at the moment, only receives patient, will need work to login as a staff
         $patient = Patient::where('user_id', '=', $user->id)->first();
+        $staff = Staff::where('user_id', '=', $user->id)
+                        ->where(function ($query) {
+                            $query->where('staff_type_id', '=', '3');
+                        })
+                        ->first();
 
         // TODO: use eloquent to find user type
         return response()->json([
@@ -114,7 +119,8 @@ class AuthController extends Controller
             'token' => $token->token,
             'user_type' => (Staff::where('user_id', '=', Auth::user()->id)->first() !== null ? 'staff' : 'patient'),
             'user' => $user,
-            'patient' => $patient
+            'patient' => $patient,
+            'staff' => $staff
         ], 200);
     }
 

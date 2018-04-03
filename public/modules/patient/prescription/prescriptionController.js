@@ -36,10 +36,12 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
             previous_prescription_id: prescription.id
         }).then(function (response) {
            // $scope.success = true;
+            alert('Request to extend the prescription sent! Awaiting doctors approval!');
 
             location.reload();
         }, function (response) {
-            $scope.msgError = true;
+           // $scope.msgError = true;
+            alert('Something went wrong. Please try again!');
         });
     }
     init();
