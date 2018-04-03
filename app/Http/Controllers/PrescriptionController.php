@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Prescription;
+use Validator;
 use Illuminate\Http\Request;
 
 class PrescriptionController extends Controller
@@ -14,10 +15,12 @@ class PrescriptionController extends Controller
      */
     public function index($patient_id)
     {
-        return Prescription::ofPatient($patient_id)->orderBy('expiration_date', 'desc')
+        return Prescription::ofPatient($patient_id)
             ->join('medicines', 'prescriptions.medicine_id', '=', 'medicines.id')
             ->join('prescription_status', 'prescriptions.prescription_status_id', '=', 'prescription_status.id')
-            ->select('prescriptions.*', 'medicines.name', 'prescription_status.name')
+            ->select('prescriptions.*', 'medicines.title', 'prescription_status.name')
+            ->orderBy('medicines.title', 'asc')
+            ->orderBy('expiration_date', 'desc')
             ->get();
     }
 
@@ -39,7 +42,34 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validating the request
+        $validator = Validator::make($request-> all(), [
+            'renewable' => 'boolean',
+            'expiration_date' =>'nullable|date',
+            'dose' => 'integer',
+            'staff_id' => 'nullable|string',
+            'patient_id' => 'required|string',
+            'medicine_id' => 'required|integer',
+            'prescription_status_id' => 'integer',
+            'previous_prescription_id' => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()], 400);
+        }
+
+        $prescription = Prescription::create([
+            'renewable' => $request->input('renewable'),
+            'expiration_date' => $request->input('expiration_date'),
+            'dose' => $request->input('dose'),
+            'staff_id' =>$request->input('staff_id'),
+            'patient_id' =>$request->input('patient_id'),
+            'medicine_id' =>$request->input('medicine_id'),
+            'prescription_status_id' =>$request->input('prescription_status_id'),
+            'previous_prescription_id' =>$request->input('previous_prescription_id'),
+
+        ]);
+        return $prescription;
     }
 
     /**

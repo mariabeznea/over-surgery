@@ -51,6 +51,10 @@ Route::resource('/appointment', 'AppointmentController');
 Route::get('/patient/{id}/prescription','PrescriptionController@index');
 Route::resource('/prescription', 'PrescriptionController');
 
+//Test results routes
+Route::get('/patient/{id}/test_results','Test_resultController@index');
+Route::resource('/test_results', 'Test_resultController');
+
 
 
 

@@ -13,25 +13,40 @@
                 <th scope="col">Dose</th>
                 <th scope="col">Expiration</th>
                 <th scope="col">Renewable</th>
-                <th scope="col">Action</th>
                 <th scope="col">Status</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
-            <!--<tbody class="table-light" ng-repeat="appointment in appointments">-->
-            <!--<tr>-->
-                <!--<th scope="row">{{appointment.date}}</th>-->
-                <!--<td>{{appointment.start_hours}} - {{appointment.end_hours}}</td>-->
-                <!--<td>{{appointment.name}}</td>-->
-                <!--<td>{{appointment.location}}</td>-->
-                <!--<td>{{appointment.notes}}</td>-->
+            <tbody class="table-light" ng-repeat="prescription in prescriptions">
+            <tr>
+                <th scope="row">{{prescription.medication}}</th>
+                <td>{{prescription.dose}} mg</td>
+                <td>{{prescription.expiration_date}}</td>
+                <td>
+                    <span ng-if="prescription.renewable == 1" data-feather="check" class="font-weight-bold ml-3" ></span>
+                    <span ng-if="prescription.renewable != 1" data-feather="x" class="font-weight-bold ml-3"></span>
+                </td>
+                <td>{{prescription.status}}</td>
+                <td>
+                    <button type="submit" ng-if="prescription.renewable == 1 && prescription.status != 'pending'"class="btn btn-os-green" ng-click="extendPrescription(prescription)">
+                        Extend
+                    </button>
+                    <button type="submit" ng-if="prescription.renewable != 1"class="btn btn-secondary" disabled ng-click="extendPrescription()">
+                        Extend
+                    </button>
+                    <button type="submit" ng-if="prescription.status == 'pending' "class="btn btn-secondary" disabled ng-click="extendPrescription()">
+                        Extend
+                    </button>
+                </td>
+
                 <!--<td>-->
                     <!--<a href="" data-toggle="modal" data-target="#editModal" ng-click="updateAppointment(appointment)">-->
                         <!--<span data-feather="edit-3" class="font-weight-bold mr-2" ></span>-->
                     <!--</a>-->
                     <!--<span data-feather="x-square" class="font-weight-bold" ng-click="deleteAppointment(appointment)"></span>-->
                 <!--</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
+            </tr>
+            </tbody>
         </table>
         <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
         <!--<button type="submit" class="mt-4 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">-->
@@ -39,3 +54,6 @@
         <!--</button>-->
     </div>
 </main>
+<script>
+    feather.replace()
+</script>
