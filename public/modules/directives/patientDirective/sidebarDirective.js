@@ -8,7 +8,8 @@ overSurgery.directive("sideBar", function(){
                 appointments: '@',
                 prescriptions: '@',
                 medication: '@',
-                testResults: '@'
+                testResults: '@',
+                logoutFunction: '&'
             }
         }
 });
