@@ -1,6 +1,6 @@
 overSurgery.directive("sideBar", function(){
         return {
-            templateUrl: 'modules/directives/sidebarView.html',
+            templateUrl: 'modules/directives/patientDirective/sidebarView.html',
             scope: {
                 firstName: '@',
                 dashboard: '@',

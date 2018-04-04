@@ -48,8 +48,12 @@
         <script src="/modules/patient/availability/availabilityController.js"></script>
         <script src="/modules/patient/appointment/appointmentController.js"></script>
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
-        <script src="/modules/patient/test_result/test_resultController.js"></script>
-        <script src="/modules/directives/sidebarDirective.js"></script>
+        <script src="/modules/patient/test_result/testResultController.js"></script>
+        <script src="/modules/receptionist/calendar/calendarController.js"></script>
+
+        <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
+        <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
+
 
     </body>
 </html>

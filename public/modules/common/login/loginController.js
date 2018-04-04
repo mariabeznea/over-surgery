@@ -40,13 +40,15 @@ overSurgery.controller('loginController', ['$scope', '$http', '$location', funct
                 localStorage.patient_id = response.data.patient.id;
                 localStorage.first_name = response.data.patient.first_name;
                 localStorage.last_name = response.data.patient.last_name;
+                $location.path('/');
+
             } else if (response.data.staff) {
                 localStorage.staff_id = response.data.staff.id;
                 localStorage.first_name = response.data.staff.first_name;
                 localStorage.last_name = response.data.staff.last_name;
+                $location.path('/staff');
             }
 
-            $location.path('/');
         }, function (response) {
             if (response.data.error.email) {
                 $scope.emailError = response.data.error.email[0] || false;
