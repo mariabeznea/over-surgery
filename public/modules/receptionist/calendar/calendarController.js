@@ -1,6 +1,10 @@
 overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConfig', function ($scope, $http, uiCalendarConfig) {
     $scope.events = [];
     $scope.eventSources = [$scope.events];
+    $scope.first_name = localStorage.first_name;
+    $scope.staff = [];
+    $scope.patient = [];
+    $scope.appointments = [];
 
     /* Change View */
     $scope.changeView = function(view,calendar) {
@@ -11,8 +15,8 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
     $scope.addEvent = function(appointment) {
         $scope.events.push({
             appointment_id: appointment.id,
-            title: 'Event1',
-            start: appointment.start
+            title: appointment.patient_firstName + '' +appointment.patient_lastName,
+            start: appointment.date
         });
     };
 
@@ -21,15 +25,40 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
         // get information for this clicked appointment
     };
 
-    $scope.first_name = localStorage.first_name;
+    function init() {
+        // Do backend connection for the staff
+        $http.get('/api/staff').then(function (response) {
+            response.data.forEach(function (staff) {
+                if (staff.staff_type_id === 1 || staff.staff_type_id === 2) {
+                    $scope.staff.push({
+                        id: staff.id,
+                        staff_name: staff.first_name + ' ' + staff.last_name,
+                        address: staff.address
+                    })
+                }
+            });
+        });
 
-    // HTTP GET ALL APPOINTMNTS
-    // Do backend connection
-    $http.get('/api/patient').then(function (response) {
+        // Do backend connection for the patients
+        $http.get('/api/patient').then(function (response) {
+            response.data.forEach(function (patient) {
+                $scope.patient.push({
+                    id: patient.id,
+                    patient_name: patient.first_name + ' ' + patient.last_name,
+                    address: patient.address
+                })
+            });
+        });
 
-        // Loop the response data, and for each element, call addEvent
-        $scope.addEvent(/*event*/);
-    });
+        // Do backend connection to get all appointments
+        $http.get('/api/appointment').then(function (response) {
+            response.data.forEach(function (appointment) {
+                console.log(appointment);
+                $scope.addEvent(appointment);
+
+            })
+        });
+    }
 
     /* config object */
     $scope.uiConfig = {
@@ -47,4 +76,5 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
             eventRender: $scope.eventRender
         }
     };
+    init();
 }]);

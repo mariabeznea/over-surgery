@@ -36,6 +36,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
             });
         });
 
+
         $http.get('api/patient/' + $scope.patient_id + '/appointment/').then(function (response) {
             response.data.forEach(function (appointment) {
 

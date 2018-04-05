@@ -19,7 +19,12 @@ class AppointmentController extends Controller
      * Display all appointments
      **/
     public function index()
-    {   $appointments = Appointment:: all();
+    {   $appointments = Appointment::join('patients', 'appointments.patient_id', '=', 'patients.id')
+                        ->join('staff', 'appointments.staff_id', '=', 'staff.id')
+                        ->select('appointments.*', 'patients.first_name as patient_firstName', 'patients.last_name as patient_lastName',
+                                 'staff.first_name as staff_firstName', 'staff.last_name as staff_lastName')
+                        ->orderBy('appointments.id', 'asc')
+                        ->get();
         return $appointments;
     }
 
@@ -38,7 +43,7 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   //TODO: fix the storing of duplicated appointments;this doesn't work
         //Validating the request
         $validator = Validator::make($request-> all(), [
             'date' => 'required|date',
