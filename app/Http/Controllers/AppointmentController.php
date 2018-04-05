@@ -16,22 +16,19 @@ class AppointmentController extends Controller
 //        $this->middleware('auth:api');
 //    }
     /**
-     * @return \Illuminate\Http\Response
-     * Display all appointments for a patient
+     * Display all appointments
      **/
-    public function index($patient_id)
-    {
-        return Appointment::ofPatient($patient_id)->orderBy('date', 'desc')->get();
+    public function index()
+    {   $appointments = Appointment:: all();
+        return $appointments;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * Display all appointments for a patient
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function showByPatient($patient_id){
+        return Appointment::ofPatient($patient_id)->orderBy('date', 'desc')->get();
     }
 
     /**

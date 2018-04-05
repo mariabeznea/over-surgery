@@ -36,10 +36,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
 
+        <!-- Calendar -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
 
         <!-- load angular via CDN -->
         <script src="https://code.angularjs.org/1.6.9/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.6.9/angular-route.min.js"></script>
+
+        <!-- Extra packages after angular loads -->
+        <script src="/js/calendar.js"></script>
+
         <script src="/js/app_custom.js"></script>
         <script src="/modules/common/login/loginController.js"></script>
         <script src="/modules/common/register/registerController.js"></script>
@@ -53,7 +61,6 @@
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
-
 
     </body>
 </html>

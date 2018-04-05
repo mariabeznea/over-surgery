@@ -23,7 +23,10 @@ Route::group(['middleware' => 'jwt.auth'], function(){
 
 // Authentication Routes...
 Route::post('auth/login', 'AuthController@login');
-//Route::post('recover', 'AuthController@recover');
+//Route::post('password/reset', 'AuthController@recover')->name('password.reset');
+Route::post('auth/recover', 'AuthController@recover');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
 Route::get('auth/logout', 'AuthController@logout');
 
 //Registration Routes...
@@ -42,7 +45,7 @@ Route::get('/shift/date/{date}/staff/{staff}', 'ShiftController@showByDateStaff'
 Route::resource('/shift', 'ShiftController');
 
 // Appointment routes
-Route::get('/patient/{id}/appointment','AppointmentController@index');
+Route::get('/patient/{id}/appointment','AppointmentController@showByPatient');
 Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff');
 Route::resource('/appointment', 'AppointmentController');
 

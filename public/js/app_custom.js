@@ -1,5 +1,5 @@
 //MODULE
-var overSurgery = angular.module('overSurgery', ['ngRoute']);
+var overSurgery = angular.module('overSurgery', ['ngRoute', 'ui.calendar']);
 
 overSurgery.config(function ($routeProvider) {
    
