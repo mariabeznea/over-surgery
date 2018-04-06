@@ -52,8 +52,8 @@
 
         <script src="/js/app_custom.js"></script>
         <script src="/modules/common/login/loginController.js"></script>
-        <script src="/modules/common/register/registerController.js"></script>
         <script src="/modules/common/resetPassword/resetPasswordController.js"></script>
+        <script src="/modules/common/register/registerController.js"></script>
         <script src="/modules/home/homeController.js"></script>
         <script src="/modules/patient/availability/availabilityController.js"></script>
         <script src="/modules/patient/appointment/appointmentController.js"></script>
