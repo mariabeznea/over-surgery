@@ -5,9 +5,96 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Calendar</h1>
     </div>
-
-    <button class="btn btn-os-green" ng-click="changeView('agendaDay', 'myCalendar')">Day</button>
-    <button class="btn btn-os-green" ng-click="changeView('agendaWeek', 'myCalendar')">Week</button>
-    <button class="btn btn-os-green" ng-click="changeView('month', 'myCalendar')">Month</button>
-    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="myCalendar"></div>
+    <div class="btn-group">
+        <button class="btn btn-os-green" ng-click="changeView('agendaDay', 'myCalendar')">Day</button>
+        <button class="btn btn-os-green" ng-click="changeView('agendaWeek', 'myCalendar')">Week</button>
+        <button class="btn btn-os-green" ng-click="changeView('month', 'myCalendar')">Month</button>
+    </div>
+    <div ui-calendar="uiConfig.calendar" id="calendar" ng-model="eventSources" calendar="myCalendar"></div>
 </main>
+<!--Edit appointment Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-2 my-2">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span data-feather="calendar"></span>
+                                </div>
+                            </div>
+                            <input type="date" class="form-control" id="editDate" ng-model="editAppointment.date" ng-change="editDate()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span data-feather="user-plus"></span>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" id="patient" ng-model="editAppointment.patient_name" disabled>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span data-feather="user-plus"></span>
+                                </div>
+                            </div>
+                            <select id="editDoctor" class="form-control" ng-model="editAppointment.staff_id" ng-change="shiftByDateStaff(editAppointment.date, editAppointment.staff_id, true)">
+                                <option value="" selected>Select doctor/nurse</option>
+                                <option value="{{staff.id}}" ng-repeat="staff in staffOnShift">{{staff.staff_name}}</option>
+                            </select>
+                        </div>
+                        <div ng-if="editAppointment.staff_id === '' && clickedUpdate" class=" mx-2 form-text text-danger">
+                            Please select a staff.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span data-feather="clock"></span>
+                                </div>
+                            </div>
+                            <select id="editHour" class="form-control" ng-model="editAppointment.start_hours">
+                                <option value="" selected>Select hour</option>
+                                <option value="{{slot.start}}" ng-repeat="slot in staffAvailability" ng-if="slot.status === 'free'">{{slot.start}}:00</option>
+                            </select>
+                        </div>
+                        <div ng-if="editAppointment.start_hours === '' && clickedUpdate" class="mx-2 form-text text-danger">
+                            Please select an hour.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editText" class="col-form-label">Notes</label>
+                        <textarea class="form-control" id="editText" ng-model="editAppointment.notes"></textarea>
+                    </div>
+                    <h6 ng-if="successfulUpdate" class="form-text text-success">
+                        Updating appointment was successful!
+                    </h6>
+                    <h6 ng-if="msgErrorUpdate" class="form-text text-danger">
+                        Something went wrong. Please try again!
+                    </h6>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-os-green" ng-click="putAppointment()">
+                    Update appointment
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
