@@ -17,12 +17,14 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
     $scope.eventSources = [$scope.events, {}, $scope.eventsF];
     $scope.first_name = localStorage.first_name;
     $scope.staff = [];
-    $scope.patient = [];
+    $scope.patients = [];
     $scope.staffOnShift = [];
     $scope.staffAvailability = [];
     $scope.appointments = [];
 
     $scope.newAppointment = {
+        patient_id: '',
+        patient_name: '',
         staff_id: '',
         date: new Date(),
         start_hours: '',
@@ -55,7 +57,7 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
         // Do backend connection for the patients
         $http.get('/api/patient').then(function (response) {
             response.data.forEach(function (patient) {
-                $scope.patient.push({
+                $scope.patients.push({
                     id: patient.id,
                     patient_name: patient.first_name + ' ' + patient.last_name,
                     address: patient.address
@@ -70,24 +72,38 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
 
             })
         });
-// When updating a date
-    $scope.editDate = function () {
+
+    // When selecting a date
+    $scope.dateChange = function () {
         // Empty current array
-        $scope.editAppointment.staff_id = '';
+        $scope.newAppointment.staff_id = '';
         $scope.staffOnShift = [];
         $scope.staffAvailability = [];
 
-        if ($scope.editAppointment.staff_id) {
-            $scope.shiftByDateStaff($scope.editAppointment.date, $scope.editAppointment.staff_id);
+        if ($scope.newAppointment.staff_id) {
+            $scope.shiftByDateStaff($scope.newAppointment.date, $scope.newAppointment.staff_id);
             return;
         }
 
-        return $scope.shiftByDate($scope.editAppointment.date);
+        $scope.shiftByDate($scope.newAppointment.date);
     };
+    // When updating a date
+        $scope.editDate = function () {
+            // Empty current array
+            $scope.editAppointment.staff_id = '';
+            $scope.staffOnShift = [];
+            $scope.staffAvailability = [];
+
+            if ($scope.editAppointment.staff_id) {
+                $scope.shiftByDateStaff($scope.editAppointment.date, $scope.editAppointment.staff_id);
+                return;
+            }
+
+            return $scope.shiftByDate($scope.editAppointment.date);
+        };
 
     $scope.shiftByDate = function (date) {
         date = moment(date).format('YYYY-MM-DD');
-        console.log(date);
         return $http.get('/api/shift/date/' + date).then(function (response) {
             response.data.forEach(function (shift) {
 
@@ -140,8 +156,52 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
                 })
             });
         });
-    };
+   };
+    $scope.bookAppointment = function () {
+        $scope.clicked = true;
+        $scope.msgError = false;
 
+        $scope.staff.forEach(function (staff){
+            if ($scope.newAppointment.staff_id == staff.id) {
+                $scope.newAppointment.location = staff.address;
+            }
+        });
+        var start = ($scope.newAppointment.start_hours < 10 ? '0':'') + $scope.newAppointment.start_hours + ':00:00';
+        var end = ($scope.newAppointment.start_hours < 9 ? '0' : '') + (parseInt($scope.newAppointment.start_hours) + 1) + ':00:00';
+
+        var noEmptyFields = true;
+        $scope.success = false;
+        // Check no empty fields
+        if($scope.newAppointment.staff_id === '' || $scope.newAppointment.patient_id === ''|| $scope.newAppointment.date === null || $scope.newAppointment.start_hours === '') {
+            noEmptyFields = false;
+        }
+        if (!noEmptyFields) {
+            return;
+        }
+
+        // Do backend connection
+        $http.post('/api/appointment', {
+            date: moment($scope.newAppointment.date).format('YYYY-MM-DD'),
+            start_hours: start,
+            end_hours: end,
+            location: $scope.newAppointment.location,
+            notes: $scope.newAppointment.notes,
+            staff_id: $scope.newAppointment.staff_id,
+            patient_id: $scope.newAppointment.patient_id
+        }).then(function (response) {
+            $scope.success = true;
+            //TODO: if I dont do this if, the name will appear as undefined but with an hour next to it!!!
+            if($scope.newAppointment.patient_id === $scope.patients.patient_id) {
+                $scope.newAppointment.patient_name = $scope.patients.patient_name;
+            }
+            $scope.addEvent($scope.newAppointment);
+            //TODO: don't show the change of empty fields before reloading but show succesful msg
+            setTimeout(location.reload.bind(location), 60);
+            $scope.newAppointment = {};
+        }, function (response) {
+            $scope.msgError = true;
+        });
+    };
     $scope.putAppointment = function () {
         $scope.clickedUpdate = true;
         $scope.msgErrorUpdate = false;
@@ -183,6 +243,20 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
 
         });
     };
+
+    $scope.deleteAppointment = function (appointment) {
+        var confirmCancel = confirm("Do you really want to cancel this appointment?");
+        if(confirmCancel){
+            $http.delete('/api/appointment/' + appointment.id)
+                .then(function (response) {
+                    alert('Appointment cancelled succesfully!');
+                    location.reload();
+                }, function (response) {
+                    alert('Something went wrong, please try again!');
+                });
+        }
+    };
+
     /* Change View */
     $scope.changeView = function(view,calendar) {
         uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);

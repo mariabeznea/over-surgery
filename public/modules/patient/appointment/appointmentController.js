@@ -277,7 +277,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
                 alert('Appointment cancelled succesfully!');
                 location.reload();
                 }, function (response) {
-                alert('Something went wrong. Please try again!');
+                alert('Something went wrong, please try again!');
                 });
         }
     }
