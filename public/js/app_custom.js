@@ -40,10 +40,6 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/receptionist/calendar/calendarView.html',
             controller: 'calendarController'
         })
-        .when('/calendar', {
-            templateUrl: '/modules/receptionist/cal/calView.html',
-            controller: 'calController'
-        })
         .otherwise({
             redirectTo: '/'
         })

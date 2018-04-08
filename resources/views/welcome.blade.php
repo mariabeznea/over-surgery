@@ -60,7 +60,6 @@
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/patient/test_result/testResultController.js"></script>
         <script src="/modules/receptionist/calendar/calendarController.js"></script>
-        <script src="/modules/receptionist/cal/calController.js"></script>
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
