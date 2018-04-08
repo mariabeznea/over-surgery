@@ -1,5 +1,5 @@
 //MODULE
-var overSurgery = angular.module('overSurgery', ['ngRoute']);
+var overSurgery = angular.module('overSurgery', ['ngRoute', 'ui.calendar']);
 
 overSurgery.config(function ($routeProvider) {
    
@@ -27,6 +27,18 @@ overSurgery.config(function ($routeProvider) {
         .when('/appointment', {
             templateUrl: '/modules/patient/appointment/appointmentView.html',
             controller: 'appointmentController'
+        })
+        .when('/prescription', {
+            templateUrl: '/modules/patient/prescription/prescriptionView.html',
+            controller: 'prescriptionController'
+        })
+        .when('/test_result', {
+            templateUrl: '/modules/patient/test_result/testResultView.html',
+            controller: 'testResultController'
+        })
+        .when('/staff', {
+            templateUrl: '/modules/receptionist/calendar/calendarView.html',
+            controller: 'calendarController'
         })
         .otherwise({
             redirectTo: '/'

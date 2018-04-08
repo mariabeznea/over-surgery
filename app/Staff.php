@@ -30,5 +30,10 @@ class Staff extends Model
     {
         return $this->hasMany("app\Appointment");
     }
+
+    public function prescriptions()
+    {
+        return $this->hasMany("app\Prescription");
+    }
 }
 

@@ -1,0 +1,54 @@
+<side-bar first-name="{{first_name}}" testResults="true"></side-bar>
+
+<!-- Main content -->
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Tests</h1>
+    </div>
+    <div class="col-md-12 mt-5">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Exam</th>
+                <th scope="col">Location</th>
+                <th scope="col">Result</th>
+            </tr>
+            </thead>
+            <tbody class="table-light" ng-repeat="test in testResults">
+            <tr>
+                <th scope="row">{{test.date}}</th>
+                <td>{{test.exam}}</td>
+                <td>{{test.location}}</td>
+                <td>
+                    <a href="" data-toggle="modal" data-target="#showResultsModal" ng-click="updateResults(test)">
+                    <span data-feather="paperclip" class="font-weight-bold ml-3 color-os-green-light" ></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<!--Showing test results Modal -->
+<div class="modal fade" id="showResultsModal" tabindex="-1" role="dialog" aria-labelledby="showResultsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showResultsModalLabel">Test Results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-2 my-2">
+                <p> {{modelContent}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    feather.replace()
+</script>
