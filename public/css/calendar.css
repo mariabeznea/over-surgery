@@ -1,4 +1,8 @@
 #calendar {
     max-width: 900px;
-    margin: 10px auto;
+    margin: 30px auto;
+}
+
+.fc-button-group, .fc button {
+    display: block !important;
 }
