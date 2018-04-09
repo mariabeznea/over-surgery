@@ -11,6 +11,7 @@
 
         <!-- load bootstrap via CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/sticky-footer-navbar.css" >
 
         <link rel="stylesheet" href="/css/colors.css">
         <link rel="stylesheet" href="/css/buttons.css">
@@ -60,9 +61,17 @@
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/patient/test_result/testResultController.js"></script>
         <script src="/modules/receptionist/calendar/calendarController.js"></script>
+        <script src="/modules/patient/chat/patientChatController.js"></script>
+        <script src="/modules/receptionist/chat/receptionistChatController.js"></script>
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
 
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">OverSurgery 2018.</span>
+                <span class="text-muted text-right">Contact Us</span>
+            </div>
+        </footer>
     </body>
 </html>

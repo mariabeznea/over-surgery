@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
+use App\Prescription;
+use App\Test_result;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Patient;
 
@@ -12,10 +16,10 @@ class PatientController extends Controller
         return $patients;
     }
 
-    public function show($id){
-        $patient = Patient::find($id);
-        return $patient;
-    }
+//    public function show($id){
+//        $patient = Patient::find($id);
+//        return $patient;
+//    }
 
     public function store(Request $request){
         $patient = Patient::create([
@@ -36,5 +40,36 @@ class PatientController extends Controller
         $patient->phone_number= Request::input('phone_number');
         $patient-> save();
         return $patient;
+    }
+
+    public function show($id) {
+
+        $totalAppointments = Appointment::ofPatient($id)
+           ->whereMonth('date', '=', Carbon::now()->format('m'))
+           ->where(function ($query) {
+                $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
+           })
+           ->count();
+
+        $totalTests = Test_result::ofPatient($id)
+            ->count();
+       $totalPrescriptions = Prescription::ofPatient($id)
+            ->join('prescription_status', 'prescriptions.prescription_status_id', '=', 'prescription_status.id')
+            ->where('prescription_status.id', '=', 2)
+            ->count();
+
+       //return array($totalAppointments, $totalTests, $totalPrescriptions);
+        return response()->json([
+            'appointments' => $totalAppointments,
+            'test_results' => $totalTests,
+            'pending_prescriptions' => $totalPrescriptions
+        ]);
+//        $patient = Patient::find($id);
+//        return $patient::withCount('appointments')->get();
+//        => function ($query){
+////            $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd')
+//               $query->whereMonth('date', '=', Carbon::now()->format('m'));
+//        }])->get();
+
     }
 }

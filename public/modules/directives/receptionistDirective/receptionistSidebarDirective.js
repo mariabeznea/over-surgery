@@ -18,7 +18,9 @@ overSurgery.directive("receptionistSidebar", function(){
             firstName: '@',
             dashboard: '@',
             appointments: '@',
+            chat:'@',
             logoutFunction: '&'
+
 
         },
         link: link

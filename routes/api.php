@@ -56,6 +56,10 @@ Route::resource('/prescription', 'PrescriptionController');
 Route::get('/patient/{id}/test_results','Test_resultController@index');
 Route::resource('/test_results', 'Test_resultController');
 
+//Chat messages routes
+Route::get('/patient/{id}/chat_messages', 'Chat_messageController@index');
+Route::resource('/chat_messages', 'Chat_messageController');
+
 
 
 

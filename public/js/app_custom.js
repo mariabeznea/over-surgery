@@ -40,6 +40,14 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/receptionist/calendar/calendarView.html',
             controller: 'calendarController'
         })
+        .when('/chat', {
+            templateUrl: '/modules/patient/chat/patientChatView.html',
+            controller: 'patientChatController'
+        })
+        .when('/staff/chat', {
+            templateUrl: '/modules/receptionist/chat/receptionistChatView.html',
+         controller: 'receptionistChatController'
+        })
         .otherwise({
             redirectTo: '/'
         })

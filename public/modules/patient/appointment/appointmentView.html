@@ -5,6 +5,10 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Appointments</h1>
         </div>
+        <!-- Button trigger modal -->
+        <button type="submit" class="mt-4 mb-3 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">
+            Book appointment
+        </button>
         <div class="col-md-12 mt-5">
             <table class="table table-striped">
                 <thead class="thead-light">
@@ -33,10 +37,10 @@
                     </tr>
                 </tbody>
             </table>
-            <!-- Button trigger modal -->
-            <button type="submit" class="mt-4 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">
-                Book appointment
-            </button>
+            <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+            <!--<button type="submit" class="mt-4 mb-3 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">-->
+                <!--Book appointment-->
+            <!--</button>-->
         </div>
     </main>
 <!--Booking new appointment Modal -->
@@ -191,25 +195,6 @@
         </div>
     </div>
 </div>
-<!--&lt;!&ndash; Successful message Modal &ndash;&gt;-->
-<!--<div ng-if="success" data-dismiss="modal" class="modal fade" id="messageModalCenter" tabindex="-1" role="dialog" aria-labelledby="messageModalCenterTitle" aria-hidden="true">-->
-    <!--<div class="modal-dialog modal-dialog-centered" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<h5 class="modal-title" id="messageModalLongTitle">Feedback</h5>-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                    <!--<span aria-hidden="true">&times;</span>-->
-                <!--</button>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--Booking appointment was successful!-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 <script>
     feather.replace()
 </script>
