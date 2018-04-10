@@ -1,0 +1,13 @@
+.home-box {
+    width: 50px;
+    padding: 3rem!important;
+    background-color: #82CEAF;!important;
+    font-family: Raleway,sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+   /*box-sizing: border-box;*/
+    /*position: relative;*/
+}

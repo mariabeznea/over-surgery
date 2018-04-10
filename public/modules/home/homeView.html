@@ -5,12 +5,22 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Home</h1>
     </div>
+    <div class=" col-md-12 mt-5">
+        <div class="row" ng-model="countInfo">
+        <div class="col-md-3 mr-4 ml-5 home-box">
+            <span class="font-weight-bold text-white">{{countInfo.appointments}}</span>
+           <h6 class="text-white"> Total appointments this month </h6>
+        </div>
+        <div class="col-md-3 mr-4 home-box">
+            <span class="font-weight-bold text-white">{{countInfo.test_results}}</span>
+            <h6 class="text-white"> Total number of test results </h6>
+        </div>
+        <div class="col-md-3 home-box">
+            <span class="font-weight-bold text-white">{{countInfo.pending_prescriptions}}</span>
+            <h6 class="text-white"> Prescriptions pending </h6>
+        </div>
+    </div>
+    </div>
 </main>
-<!--<footer class="footer">-->
-    <!--<div class="container">-->
-        <!--<span class="text-muted">Place sticky footer content here.</span>-->
-    <!--</div>-->
-<!--</footer>-->
-
 
 
