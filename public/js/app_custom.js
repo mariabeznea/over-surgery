@@ -36,13 +36,17 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/patient/test_result/testResultView.html',
             controller: 'testResultController'
         })
-        .when('/staff', {
-            templateUrl: '/modules/receptionist/calendar/calendarView.html',
-            controller: 'calendarController'
-        })
         .when('/chat', {
             templateUrl: '/modules/patient/chat/patientChatView.html',
             controller: 'patientChatController'
+        })
+        .when('/staff', {
+            templateUrl: '/modules/receptionist/home/receptionistHomeView.html',
+            controller: 'receptionistHomeController'
+        })
+        .when('/staff/calendar', {
+            templateUrl: '/modules/receptionist/calendar/calendarView.html',
+            controller: 'calendarController'
         })
         .when('/staff/chat', {
             templateUrl: '/modules/receptionist/chat/receptionistChatView.html',

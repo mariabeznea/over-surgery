@@ -1,24 +1,16 @@
-<receptionist-sidebar first-name="{{first_name}}" dashboard="true"></receptionist-sidebar>
+<receptionist-sidebar first-name="{{first_name}}" appointments="true"></receptionist-sidebar>
 
 <!-- Main content -->
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h1 class="h2">Calendar</h1>
     </div>
-    <div class="row">
         <div class="btn-group col-md-3">
             <!-- Button trigger modal -->
             <button type="submit" class=" btn btn-primary btn-os-green btn-lg btn-block align-content-md-end" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">
                 Book appointment
             </button>
         </div>
-        <div class="btn-group col-md-2 ml-auto d-flex justify-content-end">
-            <button class="btn" ng-click="changeView('agendaDay', 'myCalendar')">Day</button>
-            <button class="btn" ng-click="changeView('agendaWeek', 'myCalendar')">Week</button>
-            <button class="btn" ng-click="changeView('month', 'myCalendar')">Month</button>
-        </div>
-
-    </div>
     <div ui-calendar="uiConfig.calendar" id="calendar" ng-model="eventSources" calendar="myCalendar"></div>
 </main>
 <!--Booking new appointment Modal -->

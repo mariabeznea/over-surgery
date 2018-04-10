@@ -8,16 +8,20 @@
     <div class=" col-md-12 mt-5">
         <div class="row" ng-model="countInfo">
         <div class="col-md-3 mr-4 ml-5 home-box">
+           <h6 class="text-white mb-3"> Total appointments upcoming this month </h6>
+            <i class="fas fa-file-medical-alt fa-2x home-icons"></i>
             <span class="font-weight-bold text-white">{{countInfo.appointments}}</span>
-           <h6 class="text-white"> Total appointments this month </h6>
         </div>
         <div class="col-md-3 mr-4 home-box">
+            <h6 class="text-white mb-3"> Total number of test results </h6>
+            <i class="fas fa-heartbeat fa-2x home-icons"></i>
+
             <span class="font-weight-bold text-white">{{countInfo.test_results}}</span>
-            <h6 class="text-white"> Total number of test results </h6>
         </div>
         <div class="col-md-3 home-box">
+            <h6 class="text-white mb-3"> Prescriptions pending approval </h6>
+            <i class="fas fa-capsules fa-2x home-icons" ></i>
             <span class="font-weight-bold text-white">{{countInfo.pending_prescriptions}}</span>
-            <h6 class="text-white"> Prescriptions pending </h6>
         </div>
     </div>
     </div>

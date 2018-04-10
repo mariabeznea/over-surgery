@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shift extends Model
 {
     public function staff(){
-        return $this->belongsTo("app\Staff");
+        return $this->belongsTo("App\Staff");
     }
 
     public function appointment(){

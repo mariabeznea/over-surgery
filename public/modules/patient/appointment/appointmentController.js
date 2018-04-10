@@ -39,7 +39,6 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
         $http.get('api/patient/' + $scope.patient_id + '/appointment/').then(function (response) {
             response.data.forEach(function (appointment) {
-
                 var start = (appointment.start_hours.slice(0, -3)).toString();
                 var end = (appointment.end_hours.slice(0, -3)).toString();
 
@@ -54,7 +53,8 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
                             location: appointment.location,
                             notes: appointment.notes,
                             name: staff.staff_name,
-                            staff_id: appointment.staff_id
+                            staff_id: appointment.staff_id,
+                            editable: moment(appointment.date).isAfter(moment())
                         });
                     }
                 });

@@ -17,8 +17,8 @@
                 <th scope="col">Action</th>
             </tr>
             </thead>
-            <tbody class="table-light" ng-repeat="prescription in prescriptions">
-            <tr>
+            <tbody class="table-light" >
+            <tr ng-repeat="prescription in prescriptions">
                 <th scope="row">{{prescription.medication}}</th>
                 <td>{{prescription.dose}} mg</td>
                 <td>{{prescription.expiration_date}}</td>
@@ -28,30 +28,21 @@
                 </td>
                 <td>{{prescription.status}}</td>
                 <td>
-                    <button type="submit" ng-if="prescription.renewable == 1 && prescription.status != 'pending'"class="btn btn-os-green" ng-click="extendPrescription(prescription)">
+                    <button type="submit" ng-if="prescription.renewable == 1 && prescription.status == 'active' && prescription.clickable"
+                            class="btn btn-os-green" ng-click="extendPrescription(prescription)">
                         Extend
                     </button>
-                    <button type="submit" ng-if="prescription.renewable != 1"class="btn btn-secondary" disabled ng-click="extendPrescription()">
+                    <button type="submit" ng-if="prescription.renewable == 1 && !prescription.clickable"
+                            class="btn btn-secondary" disabled>
                         Extend
                     </button>
-                    <button type="submit" ng-if="prescription.status == 'pending' "class="btn btn-secondary" disabled ng-click="extendPrescription()">
-                        Extend
-                    </button>
+                    <!--<button type="submit" ng-if="prescription.status == 'rejected'"class="btn btn-secondary" disabled ng-click="extendPrescription()">-->
+                        <!--Extend-->
+                    <!--</button>-->
                 </td>
-
-                <!--<td>-->
-                    <!--<a href="" data-toggle="modal" data-target="#editModal" ng-click="updateAppointment(appointment)">-->
-                        <!--<span data-feather="edit-3" class="font-weight-bold mr-2" ></span>-->
-                    <!--</a>-->
-                    <!--<span data-feather="x-square" class="font-weight-bold" ng-click="deleteAppointment(appointment)"></span>-->
-                <!--</td>-->
             </tr>
             </tbody>
         </table>
-        <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-        <!--<button type="submit" class="mt-4 col-md-4 btn btn-primary btn-os-green btn-lg btn-block" data-toggle="modal" data-target="#bookingModal" ng-click="reset()">-->
-            <!--Book appointment-->
-        <!--</button>-->
     </div>
 </main>
 <script>

@@ -1,20 +1,17 @@
 overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConfig', function ($scope, $http, uiCalendarConfig) {
     $scope.events = [];
 
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-    $scope.eventsF = function (start, end, timezone, callback) {
-        var s = new Date(start).getTime() / 1000;
-        var e = new Date(end).getTime() / 1000;
-        var m = new Date(start).getMonth();
-        var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-        callback(events);
-    };
+
+    // $scope.eventsF = function (start, end, timezone, callback) {
+    //     var s = new Date(start).getTime() / 1000;
+    //     var e = new Date(end).getTime() / 1000;
+    //     var m = new Date(start).getMonth();
+    //     var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
+    //     callback(events);
+    // };
 
 
-    $scope.eventSources = [$scope.events, {}, $scope.eventsF];
+    $scope.eventSources = [$scope.events];
     $scope.first_name = localStorage.first_name;
     $scope.staff = [];
     $scope.patients = [];
@@ -264,8 +261,9 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
     /* Add event */
     $scope.addEvent = function(appointment) {
         $scope.events.push({
-            title: appointment.patient_firstName + '' +appointment.patient_lastName,
-            start: appointment.date,
+            title: appointment.patient_firstName + ' ' +appointment.patient_lastName,
+            start: appointment.date + 'T' + appointment.start_hours,
+            // end: appointment.date + ' ' + appointment.end_hours,
             appointment: appointment,
         });
     };
@@ -289,15 +287,19 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
 
         $("#editModal").modal();
     };
+    // var calendar = $('#calendar').fullCalendar('getCalendar');
     /* config object */
-    $scope.uiConfig = {
-        calendar:{
+   $scope.uiConfig = {
+
+        calendar: {
+    // $('#calendar').fullCalendar({
             height: 450,
             editable: true,
+            defaultView: 'month',
             header:{
-                left: 'title',
-                center: '',
-                right: 'today prev,next'
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
             },
             eventClick: $scope.alertEventOnClick,
             viewRender: function(view, element) {
@@ -305,7 +307,11 @@ overSurgery.controller('calendarController', ['$scope', '$http', 'uiCalendarConf
                 $scope.appointments.forEach(function (appointment) {
                     $scope.addEvent(appointment);
                 })
-            }
+            },
+                timeFormat: 'H:mm',
+            // axisFormat: 'H:mm',
+            allDaySlot: false
         }
+
     };
 }]);

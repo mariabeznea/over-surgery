@@ -21,18 +21,18 @@
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="table-light" ng-repeat="appointment in appointments">
-                    <tr>
+                <tbody class="table-light">
+                    <tr ng-repeat="appointment in appointments">
                         <th scope="row">{{appointment.date}}</th>
                         <td>{{appointment.start_hours}} - {{appointment.end_hours}}</td>
                         <td>{{appointment.name}}</td>
                         <td>{{appointment.location}}</td>
                         <td>{{appointment.notes}}</td>
                         <td>
-                            <a href="" data-toggle="modal" data-target="#editModal" ng-click="updateAppointment(appointment)">
-                                <span data-feather="edit-3" class="font-weight-bold mr-2" ></span>
-                           </a>
-                            <span data-feather="x-square" class="font-weight-bold text-danger" ng-click="deleteAppointment(appointment)"></span>
+                            <a href="" data-toggle="modal" ng-if="appointment.editable" data-target="#editModal" ng-click="updateAppointment(appointment)">
+                                <span data-feather="edit-3" class="font-weight-bold mr-2"></span>
+                            </a>
+                            <span data-feather="x-square" ng-if="appointment.editable" class="font-weight-bold text-danger" ng-click="deleteAppointment(appointment)"></span>
                         </td>
                     </tr>
                 </tbody>

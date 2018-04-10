@@ -11,3 +11,12 @@
    /*box-sizing: border-box;*/
     /*position: relative;*/
 }
+.home-icons {
+    display: inline-block;
+    color: whitesmoke;
+    vertical-align: middle;
+    border-right: 1px solid #fff;
+    margin: 0 8px;
+    padding-right: 8px;
+    width: 2em!important;
+}

@@ -7,6 +7,16 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
 
         $http.get('api/patient/' + $scope.patient_id + '/prescription/').then(function (response) {
             response.data.forEach(function (prescription) {
+                var clickable = false;
+
+                if (prescription.name === 'active') {
+                    var childrenExists = response.data.some(function (item) {
+                        return item.name === 'pending' && item.previous_prescription_id == prescription.id;
+                    });
+
+                    clickable = !childrenExists;
+                }
+
                 $scope.prescriptions.push({
                     id: prescription.id,
                     expiration_date: prescription.expiration_date,
@@ -16,7 +26,8 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
                     medication: prescription.title,
                     status: prescription.name,
                     staff_id: prescription.staff_id,
-                    previous_prescription_id: prescription.previous_prescription_id
+                    previous_prescription_id: prescription.previous_prescription_id,
+                    clickable: clickable,
                 });
             });
         })
@@ -24,6 +35,7 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
 
     $scope.extendPrescription = function (prescription) {
         console.log(prescription);
+        $scope.clicked = true;
         // Do backend connection
         $http.post('/api/prescription', {
             renewable: prescription.renewable,

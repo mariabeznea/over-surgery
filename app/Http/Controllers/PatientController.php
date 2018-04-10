@@ -45,10 +45,13 @@ class PatientController extends Controller
     public function show($id) {
 
         $totalAppointments = Appointment::ofPatient($id)
-           ->whereMonth('date', '=', Carbon::now()->format('m'))
-           ->where(function ($query) {
-                $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
-           })
+            ->whereYear('date', '=', Carbon::now()->format('Y'))
+            ->where(function ($query) {
+                $query->whereMonth('date', '=', Carbon::now()->format('m'))
+                    ->where(function ($query) {
+                        $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
+                    });
+            })
            ->count();
 
         $totalTests = Test_result::ofPatient($id)

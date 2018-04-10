@@ -8,6 +8,7 @@
 
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
         <!-- load bootstrap via CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -23,8 +24,8 @@
 
 
 
-
     <body class="bg-light">
+
 
         <div ng-view></div>
 
@@ -62,13 +63,18 @@
         <script src="/modules/patient/appointment/appointmentController.js"></script>
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/patient/test_result/testResultController.js"></script>
-        <script src="/modules/receptionist/calendar/calendarController.js"></script>
         <script src="/modules/patient/chat/patientChatController.js"></script>
+        <script src="/modules/receptionist/home/receptionistHomeController.js"></script>
+        <script src="/modules/receptionist/calendar/calendarController.js"></script>
         <script src="/modules/receptionist/chat/receptionistChatController.js"></script>
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
-
+        {{--<script>--}}
+            {{--$(function() {--}}
+                {{--$('#calendar').fullCalendar({})--}}
+            {{--});--}}
+        {{--</script>--}}
         <footer class="footer">
             <div class="container">
                 <span class="text-muted">OverSurgery 2018.</span>
