@@ -59,12 +59,14 @@
         <script src="/modules/common/resetPassword/resetPasswordController.js"></script>
         <script src="/modules/common/register/registerController.js"></script>
         <script src="/modules/home/homeController.js"></script>
+        <script src="/modules/patient/account/accountController.js"></script>
         <script src="/modules/patient/availability/availabilityController.js"></script>
         <script src="/modules/patient/appointment/appointmentController.js"></script>
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/patient/test_result/testResultController.js"></script>
         <script src="/modules/patient/chat/patientChatController.js"></script>
         <script src="/modules/receptionist/home/receptionistHomeController.js"></script>
+        <script src="/modules/receptionist/account/receptionistAccountController.js"></script>
         <script src="/modules/receptionist/calendar/calendarController.js"></script>
         <script src="/modules/receptionist/chat/receptionistChatController.js"></script>
 

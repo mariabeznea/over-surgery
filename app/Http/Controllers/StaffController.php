@@ -7,6 +7,7 @@ use App\Appointment;
 use App\Shift;
 use App\Staff;
 use Carbon\Carbon;
+use Validator;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -21,30 +22,8 @@ class StaffController extends Controller
         return Staff::all();
     }
 
-    public function getStatistics () {
-//        $totalAppointments = Appointment::ofPatient($id)
-//            ->whereMonth('date', '=', Carbon::now()->format('m'))
-//            ->where(function ($query) {
-//                $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
-//            })
-//            ->count();
-//
-        $totalPatients = Patient::all()->count();
-//        $totalPrescriptions = Prescription::ofPatient($id)
-//            ->join('prescription_status', 'prescriptions.prescription_status_id', '=', 'prescription_status.id')
-//            ->where('prescription_status.id', '=', 2)
-//            ->count();
-
-        //return array($totalAppointments, $totalTests, $totalPrescriptions);
-        return response()->json([
-//            'appointments' => $totalAppointments,
-            'test_results' => $totalPatients,
-//            'pending_prescriptions' => $totalPrescriptions
-        ]);
-    }
-
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating the statistics.
      *
      * @return \Illuminate\Http\Response
      */
@@ -127,9 +106,25 @@ class StaffController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, $id)
     {
-        //
+        //Validating the request
+        $validator = Validator::make($request-> all(), [
+            'address' => 'required|string',
+            'phone_number' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()], 400);
+        }
+
+        $staff = Staff::find($id);
+//          $staff->first_name= $request->input('first_name');
+//           $staff->last_name= $request->input('last_name');
+            $staff->address = $request->input('address');
+            $staff->phone_number = $request->input('phone_number');
+            $staff-> save();
+            return $staff;
     }
 
     /**

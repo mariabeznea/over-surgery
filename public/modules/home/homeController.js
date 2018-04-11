@@ -3,11 +3,10 @@ overSurgery.controller('homeController', ['$scope', '$http', '$location', functi
     $scope.patient_id = localStorage.patient_id;
     $scope.token = localStorage.token;
 
-    // HTTP GET ALL STAFF
-    // $scope.staff = whateveryougetfromtherequest (needs to an array)
+
     // Do backend connection
     $http.get('/api/patient/' + $scope.patient_id).then(function (response) {
-        $scope.countInfo = response.data;
+        $scope.countInfo = response.data.statistics;
     });
 
     // //TODO: get the token only for authenticated users (it fails if the page reloads because the token didn't change)

@@ -16,6 +16,10 @@ overSurgery.config(function ($routeProvider) {
             templateUrl: '/modules/common/register/registerView.html',
             controller: 'registerController'
         })
+        .when('/account', {
+            templateUrl: '/modules/patient/account/accountView.html',
+            controller: 'accountController'
+        })
         .when('/', {
             templateUrl: '/modules/home/homeView.html',
             controller: 'homeController'
@@ -43,6 +47,10 @@ overSurgery.config(function ($routeProvider) {
         .when('/staff', {
             templateUrl: '/modules/receptionist/home/receptionistHomeView.html',
             controller: 'receptionistHomeController'
+        })
+        .when('/staff/account', {
+            templateUrl: '/modules/receptionist/account/receptionistAccountView.html',
+            controller: 'receptionistAccountController'
         })
         .when('/staff/calendar', {
             templateUrl: '/modules/receptionist/calendar/calendarView.html',

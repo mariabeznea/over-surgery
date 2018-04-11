@@ -6,6 +6,7 @@ use App\Appointment;
 use App\Prescription;
 use App\Test_result;
 use Carbon\Carbon;
+use Validator;
 use Illuminate\Http\Request;
 use App\Patient;
 
@@ -15,11 +16,6 @@ class PatientController extends Controller
         $patients = Patient:: all();
         return $patients;
     }
-
-//    public function show($id){
-//        $patient = Patient::find($id);
-//        return $patient;
-//    }
 
     public function store(Request $request){
         $patient = Patient::create([
@@ -33,16 +29,28 @@ class PatientController extends Controller
         return $patient;
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
+        //Validating the request
+        $validator = Validator::make($request-> all(), [
+            'address' => 'required|string',
+            'phone_number' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()], 400);
+        }
+
         $patient = Patient::find($id);
-        $patient->last_name= Request::input('last_name');
-        $patient->address= Request::input('address');
-        $patient->phone_number= Request::input('phone_number');
+//        $patient->first_name= $request->input('first_name');
+//        $patient->last_name= $request->input('last_name');
+        $patient->address= $request->input('address');
+        $patient->phone_number= $request->input('phone_number');
         $patient-> save();
         return $patient;
     }
 
     public function show($id) {
+        $patient = Patient::find($id);
 
         $totalAppointments = Appointment::ofPatient($id)
             ->whereYear('date', '=', Carbon::now()->format('Y'))
@@ -56,16 +64,17 @@ class PatientController extends Controller
 
         $totalTests = Test_result::ofPatient($id)
             ->count();
-       $totalPrescriptions = Prescription::ofPatient($id)
+        $totalPrescriptions = Prescription::ofPatient($id)
             ->join('prescription_status', 'prescriptions.prescription_status_id', '=', 'prescription_status.id')
             ->where('prescription_status.id', '=', 2)
             ->count();
 
        //return array($totalAppointments, $totalTests, $totalPrescriptions);
         return response()->json([
-            'appointments' => $totalAppointments,
-            'test_results' => $totalTests,
-            'pending_prescriptions' => $totalPrescriptions
+            'patient' => $patient,
+            'statistics' => ['appointments' => $totalAppointments,
+                             'test_results' => $totalTests,
+                             'pending_prescriptions' => $totalPrescriptions]
         ]);
 //        $patient = Patient::find($id);
 //        return $patient::withCount('appointments')->get();
