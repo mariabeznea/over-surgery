@@ -58,7 +58,11 @@ overSurgery.config(function ($routeProvider) {
         })
         .when('/staff/chat', {
             templateUrl: '/modules/receptionist/chat/receptionistChatView.html',
-         controller: 'receptionistChatController'
+            controller: 'receptionistChatController'
+        })
+        .when('/about', {
+            templateUrl: '/modules/common/about/aboutView.html',
+            controller: 'aboutController'
         })
         .otherwise({
             redirectTo: '/'
