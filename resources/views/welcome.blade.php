@@ -73,26 +73,12 @@
 
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
+        <script src="/modules/directives/footerDirective/footerController.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
 
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k&callback=initMap">
         </script>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <span class="text-muted col-md-10">
-                       Copyright <i class="far fa-copyright fa-sm mr-1"></i>OverSurgery 2018.</span>
-                    <div class="col-md-2">
-                        <a href="#!/about" class="text-muted font-weight-bold mr-1">Contact Us</a>
-                        <i class="fab fa-facebook-square ml-1"></i>
-                        <i class="fab fa-twitter-square ml-1"></i>
-                        <i class="fab fa-google ml-1"></i>
-                        <i class="fab fa-linkedin ml-1"></i>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <footer-directive></footer-directive>
     </body>
 </html>

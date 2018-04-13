@@ -34,7 +34,6 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
     }
 
     $scope.extendPrescription = function (prescription) {
-        console.log(prescription);
         $scope.clicked = true;
         // Do backend connection
         $http.post('/api/prescription', {
@@ -55,6 +54,6 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
            // $scope.msgError = true;
             alert('Something went wrong. Please try again!');
         });
-    }
+    };
     init();
 }]);
