@@ -16,17 +16,16 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => ['web']], function () {
-    Auth::routes();
-
-    Route::post('auth/recover', 'AuthController@recover');
-
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
-    Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
-    Route::get('/home', 'HomeController@index')->name('home');
-
-
-});
+//Route::group(['middleware' => ['web']], function () {
+//    Auth::routes();
+//
+//    Route::post('auth/recover', 'AuthController@recover');
+//
+//    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+//    Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
+//
+//
+//});
 
 
 

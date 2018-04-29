@@ -8,6 +8,7 @@
 
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
         <!-- load bootstrap via CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,13 +16,14 @@
         <link rel="stylesheet" href="/css/colors.css">
         <link rel="stylesheet" href="/css/buttons.css">
         <link rel="stylesheet" href="/css/forms.css">
+        <link rel="stylesheet" href="/css/boxes.css" >
         <link rel="stylesheet" href="/css/utilities.css">
         <link rel="stylesheet" href="/css/sidebar.css">
         <link rel="stylesheet" href="/css/calendar.css">
-
-
+        <link rel="stylesheet" href="/css/sticky-footer-navbar.css" >
 
     <body class="bg-light">
+
 
         <div ng-view></div>
 
@@ -51,18 +53,32 @@
         <script src="/js/calendar.js"></script>
 
         <script src="/js/app_custom.js"></script>
+        <script src="/modules/common/services/patientService.js"></script>
+        <script src="/modules/common/services/staffService.js"></script>
         <script src="/modules/common/login/loginController.js"></script>
         <script src="/modules/common/resetPassword/resetPasswordController.js"></script>
         <script src="/modules/common/register/registerController.js"></script>
         <script src="/modules/home/homeController.js"></script>
+        <script src="/modules/patient/account/accountController.js"></script>
         <script src="/modules/patient/availability/availabilityController.js"></script>
         <script src="/modules/patient/appointment/appointmentController.js"></script>
         <script src="/modules/patient/prescription/prescriptionController.js"></script>
         <script src="/modules/patient/test_result/testResultController.js"></script>
+        <script src="/modules/patient/chat/patientChatController.js"></script>
+        <script src="/modules/receptionist/home/receptionistHomeController.js"></script>
+        <script src="/modules/receptionist/account/receptionistAccountController.js"></script>
         <script src="/modules/receptionist/calendar/calendarController.js"></script>
+        <script src="/modules/receptionist/chat/receptionistChatController.js"></script>
+        <script src="/modules/common/about/aboutController.js"></script>
 
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
+        <script src="/modules/directives/footerDirective/footerController.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
 
+        <!-- Using google maps-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k&callback=initMap"
+                async defer>
+        </script>
+        <footer-directive></footer-directive>
     </body>
 </html>

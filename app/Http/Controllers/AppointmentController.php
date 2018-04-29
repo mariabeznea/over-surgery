@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use Validator;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+//use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\App;
@@ -109,7 +113,28 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {  // JWTAuth::setToken('foo.bar.baz');
+        //$user = JWTAuth::authenticate();
+        //$user = Auth::User();
+        //$user = JWTAuth::parseToken()->authenticate();
+//        $user = JWTAuth::setToken($request->input('token'))->toUser();
+//        error_log('User is logged in'.$user);
+//            try {
+//                $appointment= Appointment::find($id);
+//                // Attempt to verify the credentials and create a token for the user
+//              //  if (Auth::check()) {
+//                    if (Auth::User()->id !== $appointment->patient_id) {
+//                        $error_message = 'There are no permissions to edit this.';
+//                        return response()->json(['success' => false, 'error' => $error_message], 401);
+//
+//                    }
+//            //    }
+//            } catch (JWTException $e) {
+//                // Something went wrong whilst trying to verify user
+//                $error_message = 'Something went wrong, please try again.';
+//                return response()->json(['success' => false, 'error' => $error_message], 401);
+//            }
+
         //Validating the request
         $validator = Validator::make($request-> all(), [
             'date' => 'required|date',
@@ -125,7 +150,6 @@ class AppointmentController extends Controller
             return response()->json(['success' => false, 'error' => $validator->messages()], 400);
         }
 
-        // do a query where you join appointment with staff table and retrieve the staff-id by inputing the name??
         $appointment = Appointment::find($id);
         $appointment->date= $request->input('date');
         $appointment->start_hours= $request->input('start_hours');

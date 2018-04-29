@@ -20,8 +20,8 @@ overSurgery.directive("sideBar", function(){
             availability: '@',
             appointments: '@',
             prescriptions: '@',
-            medication: '@',
             testResults: '@',
+            chat:'@',
             logoutFunction: '&'
         },
         link: link

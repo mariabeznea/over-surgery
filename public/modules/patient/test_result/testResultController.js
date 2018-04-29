@@ -1,4 +1,4 @@
-overSurgery.controller('testResultController', ['$scope', '$http', function ($scope, $http) {
+overSurgery.controller('testResultController', ['$scope', 'PatientService', function ($scope, PatientService) {
     $scope.first_name = localStorage.first_name;
     $scope.patient_id = localStorage.patient_id;
     $scope.testResults = [];
@@ -6,7 +6,7 @@ overSurgery.controller('testResultController', ['$scope', '$http', function ($sc
 
     function init() {
 
-        $http.get('api/patient/' + $scope.patient_id + '/test_results/').then(function (response) {
+        PatientService.getPatientTestResults($scope.patient_id).then(function (response) {
             response.data.forEach(function (test) {
                 $scope.testResults.push({
                     id: test.id,

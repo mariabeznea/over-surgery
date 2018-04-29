@@ -29,6 +29,10 @@ a.color-os-green:hover {
     color:#bdbdbd;
 }
 
+.color-os-grey-dark {
+    color: #999;
+}
+
 /* BACKGROUND
 ----------------------------------------------------------------------*/
 
@@ -50,4 +54,9 @@ a.color-os-green:hover {
 
 .bg-os-green-medium {
     background: #30916A;
+}
+
+.bg-os-chat {
+    border-color: #9de1c6 !important;
+    background: #b1e7d1;
 }

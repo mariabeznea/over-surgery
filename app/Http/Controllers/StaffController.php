@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Patient;
+use App\Appointment;
+use App\Shift;
 use App\Staff;
+use Carbon\Carbon;
+use Validator;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -18,13 +23,47 @@ class StaffController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating the statistics.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $totalAppointments = Appointment::latest()
+            ->whereYear('date', '=', Carbon::now()->format('Y'))
+            ->where(function ($query) {
+                $query->whereMonth('date', '=', Carbon::now()->format('m'))
+                      ->where(function ($query) {
+                          $query->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
+                      });
+            })
+            ->count();
+
+        $totalPatients = Patient::all()->count();
+
+        $totalStaffOnDuty = Shift::latest()
+            ->with(['staff' => function ($query) {
+               $query ->where('staff.staff_type_id', '=', 1)
+                      ->orWhere('staff.staff_type_id', '=', 2);
+//               FOR AVAILABILITY
+//                     ->with(['appointments' => function ($query) {
+//                       $query->whereBetween('date', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()]);
+//                     }]);
+            }])
+            ->whereBetween('date', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])
+
+            ->count();
+//FOR AVAILABILITY
+//        foreach ($shifts as $shift) {
+//            if($shift->staff->appointment->start_hours)
+//        }
+
+        //return array($totalAppointments, $totalTests, $totalPrescriptions);
+        return response()->json([
+            'appointments' => $totalAppointments,
+            'patients' => $totalPatients,
+            'staff_on_duty' => $totalStaffOnDuty
+        ]);
     }
 
     /**
@@ -67,9 +106,23 @@ class StaffController extends Controller
      * @param  \App\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, $id)
     {
-        //
+        //Validating the request
+        $validator = Validator::make($request-> all(), [
+            'address' => 'string',
+            'phone_number' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()], 400);
+        }
+
+        $staff = Staff::find($id);
+            $staff->address = $request->input('address');
+            $staff->phone_number = $request->input('phone_number');
+            $staff-> save();
+            return $staff;
     }
 
     /**

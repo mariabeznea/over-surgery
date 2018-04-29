@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
-
     public function register(Request $request) {
 
         //Validating the request
@@ -105,8 +104,6 @@ class AuthController extends Controller
         // Save token
         $user = $this->saveToken(Auth::user()->id, $token->token);
 
-        // TODO: use eloquent to get user info from patient or staff
-        // TODO: at the moment, only receives patient, will need work to login as a staff
         $patient = Patient::where('user_id', '=', $user->id)->first();
         $staff = Staff::where('user_id', '=', $user->id)
                         ->where(function ($query) {
@@ -114,7 +111,6 @@ class AuthController extends Controller
                         })
                         ->first();
 
-        // TODO: use eloquent to find user type
         return response()->json([
             'success' => true,
             'token' => $token->token,
@@ -157,6 +153,15 @@ class AuthController extends Controller
         return $user;
     }
 
+    public function user(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ]);
+    }
+
 //    public function logout(Request $request) {
 //        $this->validate($request, ['token' => 'required']);
 //
@@ -188,5 +193,15 @@ class AuthController extends Controller
         return response()->json([
             'success' => true, 'data' => ['message' => 'A reset email has been sent! Please check your email.']
         ]);
+    }
+
+    public function tokenExists(string $token) {
+        $user = User::where('remember_token', $token)->first();
+
+        if (!$user) {
+            return response()->json(['success' => false], 401);
+        }
+
+        return $user;
     }
 }

@@ -1,0 +1,22 @@
+.home-box {
+    width: 50px;
+    padding: 3rem!important;
+    background-color: #82CEAF;!important;
+    font-family: Raleway,sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+   /*box-sizing: border-box;*/
+    /*position: relative;*/
+}
+.home-icons {
+    display: inline-block;
+    color: whitesmoke;
+    vertical-align: middle;
+    border-right: 1px solid #fff;
+    margin: 0 8px;
+    padding-right: 8px;
+    width: 2em!important;
+}

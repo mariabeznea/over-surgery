@@ -1,0 +1,29 @@
+<receptionist-sidebar first-name="{{first_name}}" dashboard="true" logout-function="logout()"></receptionist-sidebar>
+
+<!-- Main content -->
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Home</h1>
+    </div>
+    <div class=" col-md-12 mt-5">
+        <div class="row" ng-model="countInfo">
+            <div class="col-md-3 mr-4 ml-5 home-box">
+                <h6 class="text-white mb-3"> Appointments upcoming this month </h6>
+                <i class="fas fa-file-medical-alt fa-2x home-icons"></i>
+                <span class="font-weight-bold text-white">{{countInfo.appointments}}</span>
+            </div>
+            <div class="col-md-3 mr-4 home-box">
+                <h6 class="text-white mb-4"> Total number of patients </h6>
+                <i class="fas fa-diagnoses fa-2x home-icons"></i>
+                <span class="font-weight-bold text-white">{{countInfo.patients}}</span>
+            </div>
+            <div class="col-md-3 home-box">
+                <h6 class="text-white mb-4"> Staff on duty this week </h6>
+                <i class="fas fa-user-md fa-2x home-icons"></i>
+                <span class="font-weight-bold text-white">{{countInfo.staff_on_duty}}</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+

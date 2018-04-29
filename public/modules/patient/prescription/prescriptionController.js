@@ -1,12 +1,22 @@
-overSurgery.controller('prescriptionController', ['$scope', '$http', function ($scope, $http) {
+overSurgery.controller('prescriptionController', ['$scope', 'PatientService', function ($scope, PatientService) {
     $scope.first_name = localStorage.first_name;
     $scope.patient_id = localStorage.patient_id;
     $scope.prescriptions = [];
 
     function init() {
 
-        $http.get('api/patient/' + $scope.patient_id + '/prescription/').then(function (response) {
+        PatientService.getPatientPrescriptions($scope.patient_id).then(function (response) {
             response.data.forEach(function (prescription) {
+                var clickable = false;
+
+                if (prescription.name === 'active') {
+                    var childrenExists = response.data.some(function (item) {
+                        return item.name === 'pending' && item.previous_prescription_id == prescription.id;
+                    });
+
+                    clickable = !childrenExists;
+                }
+
                 $scope.prescriptions.push({
                     id: prescription.id,
                     expiration_date: prescription.expiration_date,
@@ -16,16 +26,17 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
                     medication: prescription.title,
                     status: prescription.name,
                     staff_id: prescription.staff_id,
-                    previous_prescription_id: prescription.previous_prescription_id
+                    previous_prescription_id: prescription.previous_prescription_id,
+                    clickable: clickable,
                 });
             });
         })
     }
 
     $scope.extendPrescription = function (prescription) {
-        console.log(prescription);
+        $scope.clicked = true;
         // Do backend connection
-        $http.post('/api/prescription', {
+        PatientService.postPatientPrescriptions({
             renewable: prescription.renewable,
             expiration_date: "",
             dose: prescription.dose,
@@ -43,6 +54,6 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
            // $scope.msgError = true;
             alert('Something went wrong. Please try again!');
         });
-    }
+    };
     init();
 }]);

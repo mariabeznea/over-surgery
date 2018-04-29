@@ -17,10 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'jwt.auth'], function(){
-    Route::get('auth/user', 'AuthController@user');
-});
-
 // Authentication Routes...
 Route::post('auth/login', 'AuthController@login');
 Route::post('auth/recover', 'AuthController@recover');
@@ -32,29 +28,33 @@ Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('p
 Route::post('auth/register', 'AuthController@register');
 
 // Patient routes
-Route::resource('/patient', 'PatientController');
+Route::resource('/patient', 'PatientController')->middleware('AccessPatient');
 
 // Staff routes
-Route::resource('/staff', 'StaffController');
+Route::resource('/staff', 'StaffController')->middleware('AccessStaff');
 
-//TODO: organize routes to show only the needed functions ex: ['only' => ['index', 'show']];
 // Shift routes
-Route::get('/shift/date/{date}', 'ShiftController@showByDate');
-Route::get('/shift/date/{date}/staff/{staff}', 'ShiftController@showByDateStaff');
-Route::resource('/shift', 'ShiftController');
+Route::group(['middleware' => 'AccessShift'], function(){
+    Route::get('/shift/date/{date}', 'ShiftController@showByDate');
+    Route::get('/shift/date/{date}/staff/{staff}', 'ShiftController@showByDateStaff');
+});
 
 // Appointment routes
-Route::get('/patient/{id}/appointment','AppointmentController@showByPatient');
-Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff');
-Route::resource('/appointment', 'AppointmentController');
+Route::get('/patient/{id}/appointment','AppointmentController@showByPatient')->middleware('AccessPatient');
+Route::get('/appointment/date/{date}/staff/{staff}', 'AppointmentController@showByDateStaff')->middleware('AccessToken');
+Route::resource('/appointment', 'AppointmentController')->middleware('AccessAppointment');
 
 //Prescription routes
-Route::get('/patient/{id}/prescription','PrescriptionController@index');
-Route::resource('/prescription', 'PrescriptionController');
+Route::get('/patient/{id}/prescription','PrescriptionController@index')->middleware('AccessPatient');
+Route::resource('/prescription', 'PrescriptionController')->middleware('AccessPrescription');
+
 
 //Test results routes
-Route::get('/patient/{id}/test_results','Test_resultController@index');
-Route::resource('/test_results', 'Test_resultController');
+Route::get('/patient/{id}/test_results','Test_resultController@index')->middleware('AccessPatient');
+
+//Chat messages routes
+Route::get('/patient/{id}/chat_messages', 'Chat_messageController@index')->middleware('AccessPatient');
+Route::resource('/chat_messages', 'Chat_messageController')->middleware('AccessChat_messages');
 
 
 

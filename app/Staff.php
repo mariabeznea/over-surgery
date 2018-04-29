@@ -35,5 +35,10 @@ class Staff extends Model
     {
         return $this->hasMany("app\Prescription");
     }
+
+    public function chat_messages()
+    {
+        return $this->hasMany("app\Chat_message");
+    }
 }
 

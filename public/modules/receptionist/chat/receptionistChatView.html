@@ -1,0 +1,31 @@
+<receptionist-sidebar first-name="{{first_name}}" chat="true"></receptionist-sidebar>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Chat room</h1>
+    </div>
+    <select id="selectPatient" class="form-control mb-2" ng-model="selectedPatient" ng-change="getAllComments(selectedPatient)" required>
+        <option value="" selected>Select a patient</option>
+        <option value="{{patient.id}}" ng-repeat="patient in patients">{{patient.first_name + ' ' + patient.last_name}}</option>
+    </select>
+<div ng-if="selectedPatient !=null">
+    <div id="chatDiv"  class="bg-white border rounded" style="width:1075px; height:430px; overflow-y: scroll;overflow-x:hidden;">
+        <div class="row">
+            <div class="col-12" ng-class="comment.owner === 'patient' ? 'text-left' : 'text-right'" ng-repeat="comment in comments">
+                <div class="d-inline-block border rounded ml-3 mr-3 mb-1 " ng-class="comment.owner === 'patient' ? 'bg-light' : 'bg-os-chat'">
+                    <div class="col-12 font-weight-bold">{{comment.owner === 'staff' ? comment.staff_firstName :
+                        comment.patient_firstName + ' '+ comment.patient_lastName}}</div>
+                    <div class="col-12">{{comment.message}}</div>
+                        <div class="col-12 text-right" ng-class="comment.owner === 'patient' ? 'color-os-grey' : 'color-os-grey-dark'">{{comment.created_at}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-1">
+        <input type="textarea" class="form-control" ng-model="message" placeholder="Type your message here..." required>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-os-green" ng-click="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+</main>

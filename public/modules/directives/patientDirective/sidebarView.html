@@ -1,11 +1,10 @@
 <nav class="navbar navbar-dark sticky-top bg-os-green p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-        Over Surgery
-        <!--<img src="images\logo3.png" alt="">-->
+        <img src="images\logo-menu.png" alt="" style="width: 190px">
     </a>
     <div class="justify-content-between px-3 ">
         <span class="text-white  text-decoration-none mr-4" href="#">Hi, {{firstName}}</span>
-        <a class="text-white text-decoration-none mr-4" href="#">
+        <a class="text-white text-decoration-none mr-4" href="#!/account">
             <span data-feather="user"></span>
             Account</a>
         <a class="text-white text-decoration-none" ng-click="logout()" href="#!/login" >Log out
@@ -40,13 +39,13 @@
                             <span data-feather="file-text"></span>
                             Prescriptions
                         </a>
-                        <a class="nav-link" href="#" ng-class="{ 'active': medication }">
-                            <span data-feather="file"></span>
-                            Medication
-                        </a>
                         <a class="nav-link" href="#!/test_result" ng-class="{ 'active': testResults }">
                             <span data-feather="activity"></span>
                             Tests
+                        </a>
+                        <a class="nav-link" href="#!/chat" ng-class="{ 'active': chat }">
+                            <span data-feather="message-circle"></span>
+                            Chat
                         </a>
                     </li>
                 </ul>

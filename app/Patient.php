@@ -25,7 +25,7 @@ class Patient extends Model
 
     public function appointments()
     {
-        return $this->hasMany("app\Appointment");
+        return $this->hasMany("App\Appointment");
     }
 
     public function prescriptions()
@@ -36,5 +36,10 @@ class Patient extends Model
     public function test_results()
     {
         return $this->hasMany("app\Test_result");
+    }
+
+    public function chat_messages()
+    {
+        return $this->hasMany("app\Chat_message");
     }
 }
