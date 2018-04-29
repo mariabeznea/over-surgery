@@ -1,4 +1,4 @@
-overSurgery.controller('appointmentController', ['$scope', '$http', function ($scope, $http) {
+overSurgery.controller('appointmentController', ['$scope', 'PatientService', 'StaffService', function ($scope, PatientService, StaffService) {
     $scope.first_name = localStorage.first_name;
     $scope.patient_id = localStorage.patient_id;
     $scope.staff = [];
@@ -24,7 +24,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     function init() {
         // Do backend connection for the staff
-        $http.get('/api/staff').then(function (response) {
+        StaffService.getAllStaff().then(function (response) {
             response.data.forEach(function (staff) {
                 if (staff.staff_type_id === 1 || staff.staff_type_id === 2) {
                     $scope.staff.push({
@@ -36,8 +36,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
             });
         });
 
-
-        $http.get('api/patient/' + $scope.patient_id + '/appointment/').then(function (response) {
+        PatientService.getPatientAppointments($scope.patient_id).then(function (response) {
             response.data.forEach(function (appointment) {
                 var start = (appointment.start_hours.slice(0, -3)).toString();
                 var end = (appointment.end_hours.slice(0, -3)).toString();
@@ -64,6 +63,12 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     // When selecting a date
     $scope.dateChange = function () {
+        var isTodayOrAfter = moment($scope.newAppointment.date).isAfter(moment().subtract(1, "days"));
+
+        if (!isTodayOrAfter) {
+            $scope.newAppointment.date = new Date();
+        }
+
         // Empty current array
         $scope.newAppointment.staff_id = '';
         $scope.staffOnShift = [];
@@ -88,6 +93,12 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     // When updating a date
     $scope.editDate = function () {
+        var isTodayOrAfter = moment($scope.editAppointment.date).isAfter(moment().subtract(1, "days"));
+
+        if (!isTodayOrAfter) {
+            $scope.editAppointment.date = new Date();
+        }
+
         // Empty current array
         $scope.editAppointment.staff_id = '';
         $scope.staffOnShift = [];
@@ -112,7 +123,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     function shiftByDate(date) {
         date = moment(date).format('YYYY-MM-DD');
-        return $http.get('/api/shift/date/' + date).then(function (response) {
+        return StaffService.getShiftByDate(date).then(function (response) {
             response.data.forEach(function (shift) {
 
                 // Cycle the staff to search for the doctor/nurse with the staff_id in the current shift
@@ -127,7 +138,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
 
     function shiftByDateStaff(date, staff_id, updatingAppointment) {
         date = moment(date).format('YYYY-MM-DD');
-        return $http.get('/api/shift/date/' + date + '/staff/' + staff_id).then(function (response) {
+        return StaffService.getShiftByDateStaff(date, staff_id).then(function (response) {
 
             // Reset Availability
             $scope.staffAvailability = [];
@@ -147,7 +158,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
                 })
             }
 
-            $http.get('/api/appointment/date/' + date + '/staff/' + staff_id).then(function (response) {
+            PatientService.getShiftByDateStaff(date, staff_id).then(function (response) {
                 response.data.forEach(function (appointment) {
                     var start = parseInt(appointment.start_hours.slice(0, 2));
 
@@ -188,7 +199,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         }
 
         // Do backend connection
-        $http.post('/api/appointment', {
+        PatientService.postAppointment({
             date: moment($scope.newAppointment.date).format('YYYY-MM-DD'),
             start_hours: start,
             end_hours: end,
@@ -199,7 +210,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         }).then(function (response) {
             $scope.success = true;
             $scope.newAppointment = {};
-
+            location.reload();
         }, function (response) {
             $scope.msgError = true;
         });
@@ -228,7 +239,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
         }
 
         // Do backend connection
-        $http.put('/api/appointment/' + $scope.editAppointment.id, {
+        PatientService.putAppointment($scope.editAppointment.id, {
             date: moment($scope.editAppointment.date).format('YYYY-MM-DD'),
             start_hours: start,
             end_hours: end,
@@ -272,7 +283,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
     $scope.deleteAppointment = function (appointment) {
         var confirmCancel = confirm("Do you really want to cancel this appointment?");
         if(confirmCancel){
-            $http.delete('/api/appointment/' + appointment.id)
+            PatientService.deleteAppointment(appointment.id)
                 .then(function (response) {
                 alert('Appointment cancelled succesfully!');
                 location.reload();
@@ -280,7 +291,7 @@ overSurgery.controller('appointmentController', ['$scope', '$http', function ($s
                 alert('Something went wrong, please try again!');
                 });
         }
-    }
+    };
     init();
 }]);
 

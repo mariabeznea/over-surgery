@@ -1,4 +1,4 @@
-overSurgery.controller('availabilityController', ['$scope', '$http', function ($scope, $http) {
+overSurgery.controller('availabilityController', ['$scope', 'PatientService', 'StaffService', function ($scope, PatientService, StaffService) {
 
     $scope.first_name = localStorage.first_name;
     $scope.shift = {
@@ -12,7 +12,7 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
     function init() {
 
         // Do backend connection for the staff
-        $http.get('/api/staff').then(function (response) {
+        StaffService.getAllStaff().then(function (response) {
 
             // Saving the staff in a new array to use it in the select2
             response.data.forEach(function (staff) {
@@ -70,7 +70,7 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
 
     function shiftByDate(date) {
         date = moment(date).format('YYYY-MM-DD');
-        $http.get('/api/shift/date/' + date).then(function (response) {
+        StaffService.getShiftByDate(date).then(function (response) {
             response.data.forEach(function (shift) {
 
                 // Cycle the staff to search for the doctor/nurse with the staff_id in the current shift
@@ -85,7 +85,7 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
 
     function shiftByDateStaff(date, staff_id) {
         date = moment(date).format('YYYY-MM-DD');
-        $http.get('/api/shift/date/' + date + '/staff/' + staff_id).then(function (response) {
+        StaffService.getShiftByDateStaff(date, staff_id).then(function (response) {
 
             // Reset Availability
             $scope.staffAvailability = [];
@@ -105,7 +105,7 @@ overSurgery.controller('availabilityController', ['$scope', '$http', function ($
                 })
             }
 
-            $http.get('/api/appointment/date/' + date + '/staff/' + staff_id).then(function (response) {
+            PatientService.getShiftByDateStaff(date, staff_id).then(function (response) {
                 response.data.forEach(function (appointment) {
                     var start = parseInt(appointment.start_hours.slice(0, 2));
 

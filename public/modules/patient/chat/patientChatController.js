@@ -1,4 +1,4 @@
-overSurgery.controller('patientChatController', ['$scope', '$http', '$interval', '$window', function ($scope, $http, $interval, $window) {
+overSurgery.controller('patientChatController', ['$scope', 'PatientService', '$interval', function ($scope, PatientService, $interval) {
     $scope.first_name = localStorage.first_name;
     $scope.comments = [];
 
@@ -12,7 +12,7 @@ overSurgery.controller('patientChatController', ['$scope', '$http', '$interval',
     }
 
     function getAllComments(patient_id) {
-        $http.get('/api/patient/' + patient_id + '/chat_messages').then(function (response) {
+        PatientService.getPatientChatMessages(patient_id).then(function (response) {
             $scope.comments = response.data;
             $scope.comments.forEach(function (comment) {
                 comment.created_at = moment(comment.created_at).format('HH:mm');
@@ -30,7 +30,7 @@ overSurgery.controller('patientChatController', ['$scope', '$http', '$interval',
         }
 
         // Do backend connection
-        $http.post('/api/chat_messages', {
+        PatientService.postChatMessages({
             message: $scope.message,
             owner: 'patient',
             patient_id: localStorage.patient_id

@@ -68,3 +68,45 @@ overSurgery.config(function ($routeProvider) {
             redirectTo: '/'
         })
 });
+
+overSurgery.run(['$rootScope', '$location', function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeStart', function (event) {
+
+        var existsInPath = function (text) { return $location.path().indexOf(text) > -1; };
+
+        // If going to login/register, stop the function
+        if (existsInPath('login') || existsInPath('register') || existsInPath('reset')) {
+            // If accessing login/register while already logged in, redirect to '/'
+            if (localStorage.token) {
+                $location.path('/');
+            }
+            return;
+        }
+
+        // If accessing anything else, and do not have token in local storage, prevent load, redirect to '/login'
+        if (!localStorage.token) {
+            event.preventDefault();
+            $location.path('/login');
+            return;
+        }
+
+        // About page is free for all
+        if (existsInPath('about')) {
+            return;
+        }
+
+        // Prevent patients from accessing staff pages
+        if (localStorage.patient_id && existsInPath('staff')) {
+            event.preventDefault();
+            $location.path('/');
+            return;
+        }
+
+        // Prevent staff from accessing pages without 'staff'
+        if (localStorage.staff_id && !existsInPath('staff')) {
+            event.preventDefault();
+            $location.path('/staff');
+            return;
+        }
+    });
+}]);

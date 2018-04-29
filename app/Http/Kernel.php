@@ -60,5 +60,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+        'AccessPatient' => \App\Http\Middleware\AccessPatient::class,
+        'AccessStaff' => \App\Http\Middleware\AccessStaff::class,
+        'AccessToken' => \App\Http\Middleware\AccessToken::class,
+        'AccessAppointment' => \App\Http\Middleware\AccessAppointment::class,
+        'AccessPrescription' => \App\Http\Middleware\AccessPrescription::class,
+        'AccessChat_messages' => \App\Http\Middleware\AccessChat_messages::class,
+        'AccessShift' => \App\Http\Middleware\AccessShift::class,
     ];
 }

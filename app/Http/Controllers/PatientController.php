@@ -57,7 +57,7 @@ class PatientController extends Controller
             ->where(function ($query) {
                 $query->whereMonth('date', '=', Carbon::now()->format('m'))
                     ->where(function ($query) {
-                        $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
+                        $query->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
                     });
             })
            ->count();
@@ -69,7 +69,6 @@ class PatientController extends Controller
             ->where('prescription_status.id', '=', 2)
             ->count();
 
-       //return array($totalAppointments, $totalTests, $totalPrescriptions);
         return response()->json([
             'patient' => $patient,
             'statistics' => ['appointments' => $totalAppointments,

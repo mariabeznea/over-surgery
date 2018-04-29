@@ -34,7 +34,7 @@ class StaffController extends Controller
             ->where(function ($query) {
                 $query->whereMonth('date', '=', Carbon::now()->format('m'))
                       ->where(function ($query) {
-                          $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd'));
+                          $query->whereDate('date', '>=', Carbon::now()->format('Y-m-d'));
                       });
             })
             ->count();
@@ -110,8 +110,8 @@ class StaffController extends Controller
     {
         //Validating the request
         $validator = Validator::make($request-> all(), [
-            'address' => 'required|string',
-            'phone_number' => 'required|string',
+            'address' => 'string',
+            'phone_number' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -119,8 +119,6 @@ class StaffController extends Controller
         }
 
         $staff = Staff::find($id);
-//          $staff->first_name= $request->input('first_name');
-//           $staff->last_name= $request->input('last_name');
             $staff->address = $request->input('address');
             $staff->phone_number = $request->input('phone_number');
             $staff-> save();

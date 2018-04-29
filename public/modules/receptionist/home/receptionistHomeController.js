@@ -1,9 +1,9 @@
-overSurgery.controller('receptionistHomeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+overSurgery.controller('receptionistHomeController', ['$scope','StaffService', '$location', function ($scope, StaffService) {
     $scope.first_name = localStorage.first_name;
 
 
     // Do backend connection
-    $http.get('/api/staff/create').then(function (response) {
+    StaffService.getDashboard().then(function (response) {
         $scope.countInfo = response.data;
     });
 

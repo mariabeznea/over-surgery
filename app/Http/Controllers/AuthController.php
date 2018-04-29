@@ -194,4 +194,14 @@ class AuthController extends Controller
             'success' => true, 'data' => ['message' => 'A reset email has been sent! Please check your email.']
         ]);
     }
+
+    public function tokenExists(string $token) {
+        $user = User::where('remember_token', $token)->first();
+
+        if (!$user) {
+            return response()->json(['success' => false], 401);
+        }
+
+        return $user;
+    }
 }

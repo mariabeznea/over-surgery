@@ -22,8 +22,6 @@
         <link rel="stylesheet" href="/css/calendar.css">
         <link rel="stylesheet" href="/css/sticky-footer-navbar.css" >
 
-
-
     <body class="bg-light">
 
 
@@ -55,6 +53,8 @@
         <script src="/js/calendar.js"></script>
 
         <script src="/js/app_custom.js"></script>
+        <script src="/modules/common/services/patientService.js"></script>
+        <script src="/modules/common/services/staffService.js"></script>
         <script src="/modules/common/login/loginController.js"></script>
         <script src="/modules/common/resetPassword/resetPasswordController.js"></script>
         <script src="/modules/common/register/registerController.js"></script>
@@ -71,13 +71,13 @@
         <script src="/modules/receptionist/chat/receptionistChatController.js"></script>
         <script src="/modules/common/about/aboutController.js"></script>
 
-
         <script src="/modules/directives/patientDirective/sidebarDirective.js"></script>
         <script src="/modules/directives/footerDirective/footerController.js"></script>
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
 
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k&callback=initMap">
+        <!-- Using google maps-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k&callback=initMap"
+                async defer>
         </script>
         <footer-directive></footer-directive>
     </body>

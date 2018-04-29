@@ -1,4 +1,4 @@
-overSurgery.controller('receptionistChatController', ['$scope', '$http', '$interval', '$window', function ($scope, $http, $interval, $window) {
+overSurgery.controller('receptionistChatController', ['$scope', 'PatientService', '$interval', function ($scope, PatientService, $interval) {
     $scope.first_name = localStorage.first_name;
     $scope.comments = [];
     $scope.patients = [];
@@ -9,7 +9,7 @@ overSurgery.controller('receptionistChatController', ['$scope', '$http', '$inter
     }
 
     function getAllPatients() {
-        $http.get('/api/patient').then(function (response) {
+        PatientService.getAllPatients().then(function (response) {
             $scope.patients = response.data;
         });
     }
@@ -21,14 +21,14 @@ overSurgery.controller('receptionistChatController', ['$scope', '$http', '$inter
 
         $interval.cancel($scope.chatInterval);
 
-        $http.get('/api/patient/' + patient_id + '/chat_messages').then(function (response) {
+        PatientService.getPatientChatMessages(patient_id).then(function (response) {
             $scope.comments = response.data;
             $scope.comments.forEach(function (comment) {
                 comment.created_at = moment(comment.created_at).format('HH:mm');
             });
 
             $scope.chatInterval = $interval(function () {
-                $http.get('/api/patient/' + patient_id + '/chat_messages').then(function (response) {
+                PatientService.getPatientChatMessages(patient_id).then(function (response) {
                     $scope.comments = response.data;
                     $scope.comments.forEach(function (comment) {
                         comment.created_at = moment(comment.created_at).format('HH:mm');
@@ -50,7 +50,7 @@ overSurgery.controller('receptionistChatController', ['$scope', '$http', '$inter
         }
 
         // Do backend connection
-        $http.post('/api/chat_messages', {
+        PatientService.postChatMessages({
             message: $scope.message,
             owner: 'staff',
             patient_id: $scope.selectedPatient,

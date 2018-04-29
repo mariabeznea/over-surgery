@@ -1,11 +1,11 @@
-overSurgery.controller('prescriptionController', ['$scope', '$http', function ($scope, $http) {
+overSurgery.controller('prescriptionController', ['$scope', 'PatientService', function ($scope, PatientService) {
     $scope.first_name = localStorage.first_name;
     $scope.patient_id = localStorage.patient_id;
     $scope.prescriptions = [];
 
     function init() {
 
-        $http.get('api/patient/' + $scope.patient_id + '/prescription/').then(function (response) {
+        PatientService.getPatientPrescriptions($scope.patient_id).then(function (response) {
             response.data.forEach(function (prescription) {
                 var clickable = false;
 
@@ -36,7 +36,7 @@ overSurgery.controller('prescriptionController', ['$scope', '$http', function ($
     $scope.extendPrescription = function (prescription) {
         $scope.clicked = true;
         // Do backend connection
-        $http.post('/api/prescription', {
+        PatientService.postPatientPrescriptions({
             renewable: prescription.renewable,
             expiration_date: "",
             dose: prescription.dose,

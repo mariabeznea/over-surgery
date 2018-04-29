@@ -4,7 +4,7 @@ overSurgery.controller('aboutController', ['$scope', '$http', '$location', funct
     $scope.staff = !!localStorage.staff_id;
 
     function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+        var uluru = {lat: 52.175176, lng: 0.140451};
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 7,
             center: uluru

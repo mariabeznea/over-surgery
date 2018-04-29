@@ -1,4 +1,4 @@
-overSurgery.controller('accountController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+overSurgery.controller('accountController', ['$scope', 'PatientService', function ($scope, PatientService) {
     $scope.first_name = localStorage.first_name;
     $scope.patient_id = localStorage.patient_id;
 
@@ -15,10 +15,9 @@ overSurgery.controller('accountController', ['$scope', '$http', '$location', fun
     }
 
     // Do backend connection to get the patient's information
-    $http.get('/api/patient/'+ $scope.patient_id).then(function (response) {
-            $scope.user = response.data.patient;
-            $scope.user.date_of_birth = new Date(response.data.patient.date_of_birth);
-            console.log($scope.user);
+    PatientService.getPatient($scope.patient_id).then(function (response) {
+        $scope.user = response.data.patient;
+        $scope.user.date_of_birth = new Date(response.data.patient.date_of_birth);
     });
 
     function checkNoEmptyFields(obj) {
@@ -42,7 +41,7 @@ overSurgery.controller('accountController', ['$scope', '$http', '$location', fun
         console.log($scope.user);
 
         // Do backend connection
-        $http.put('/api/patient/' + $scope.patient_id, {
+        PatientService.putPatient($scope.patient_id, {
             phone_number: $scope.user.phone_number,
             address: $scope.user.address
         }).then(function (response) {

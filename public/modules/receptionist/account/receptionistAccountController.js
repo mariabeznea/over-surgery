@@ -1,4 +1,4 @@
-overSurgery.controller('receptionistAccountController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+overSurgery.controller('receptionistAccountController', ['$scope', 'StaffService', function ($scope, StaffService) {
     $scope.first_name = localStorage.first_name;
     $scope.staff_id = localStorage.staff_id;
 
@@ -15,7 +15,7 @@ overSurgery.controller('receptionistAccountController', ['$scope', '$http', '$lo
     }
 
     // Do backend connection to get the receptionist's information
-    $http.get('/api/staff/'+ $scope.staff_id).then(function (response) {
+    StaffService.getStaff($scope.staff_id).then(function (response) {
         $scope.user = response.data;
         $scope.user.date_of_birth = new Date(response.data.date_of_birth);
     });
@@ -41,7 +41,7 @@ overSurgery.controller('receptionistAccountController', ['$scope', '$http', '$lo
         }
 
         // Do backend connection
-        $http.put('/api/staff/' + $scope.staff_id, {
+        StaffService.putStaff($scope.staff_id, {
             phone_number: $scope.user.phone_number,
             address: $scope.user.address
         }).then(function (response) {
