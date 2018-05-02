@@ -45,20 +45,11 @@ class StaffController extends Controller
             ->with(['staff' => function ($query) {
                $query ->where('staff.staff_type_id', '=', 1)
                       ->orWhere('staff.staff_type_id', '=', 2);
-//               FOR AVAILABILITY
-//                     ->with(['appointments' => function ($query) {
-//                       $query->whereBetween('date', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()]);
-//                     }]);
             }])
             ->whereBetween('date', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])
 
             ->count();
-//FOR AVAILABILITY
-//        foreach ($shifts as $shift) {
-//            if($shift->staff->appointment->start_hours)
-//        }
 
-        //return array($totalAppointments, $totalTests, $totalPrescriptions);
         return response()->json([
             'appointments' => $totalAppointments,
             'patients' => $totalPatients,

@@ -41,8 +41,6 @@ class PatientController extends Controller
         }
 
         $patient = Patient::find($id);
-//        $patient->first_name= $request->input('first_name');
-//        $patient->last_name= $request->input('last_name');
         $patient->address= $request->input('address');
         $patient->phone_number= $request->input('phone_number');
         $patient-> save();
@@ -75,12 +73,5 @@ class PatientController extends Controller
                              'test_results' => $totalTests,
                              'pending_prescriptions' => $totalPrescriptions]
         ]);
-//        $patient = Patient::find($id);
-//        return $patient::withCount('appointments')->get();
-//        => function ($query){
-////            $query->whereDate('date', '>=', Carbon::now()->format('yyyy-mm-dd')
-//               $query->whereMonth('date', '=', Carbon::now()->format('m'));
-//        }])->get();
-
     }
 }

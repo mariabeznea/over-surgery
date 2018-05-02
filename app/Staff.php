@@ -10,9 +10,6 @@ class Staff extends Model
         //
     ];
 
-//      In case plural version of Staff as table name doesnt work
-   // protected $table = 'staff';
-
     public function user(){
         return $this->belongsTo("app\User");
     }

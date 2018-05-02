@@ -2,10 +2,7 @@
 
 <!-- Main content -->
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-    <!--<div id="card-availability" class="card col-md-12" >-->
-        <!--<div class="card-body">-->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <!--<h5 class="card-title">Find GP/nurse's availability</h5>-->
                 <h1 class="h2">Find GP/nurse's availability</h1>
             </div>
     <div id="card-availability" class="card col-md-12" >
@@ -51,18 +48,10 @@
                     </tr>
                     </thead>
                     <tbody ng-repeat="slot in staffAvailability">
-                        <tr >
-                            <!--TODO: align hours top and fix the slot.end as well-->
+                        <tr>
                             <th  valign="top" scope="row">{{slot.start}}:00</th>
                             <td>{{slot.status}}</td>
-                            <!--TODO: put colors to status column-->
-                            <!--<td ng-if="slot.status === 'occupied'" class="table-danger">{{slot.status}}</td>-->
-                            <!--{{slot.start}} - {{slot.end}} : {{slot.status}}-->
                         </tr>
-                        <!--<tr>-->
-                            <!--<th scope="row">{{slot.end}}</th>-->
-                            <!--<td>{{slot.status}}</td>-->
-                        <!--</tr>-->
                     </tbody>
                 </table>
             </div>

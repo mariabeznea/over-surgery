@@ -5,7 +5,7 @@ overSurgery.controller('patientChatController', ['$scope', 'PatientService', '$i
     function init () {
         getAllComments(localStorage.patient_id);
 
-        // Every 3 seconds check the backend for new comments
+        // Every 1.5 seconds check the backend for new comments
         $scope.chatInterval = $interval(function(){
             getAllComments(localStorage.patient_id);
         }, 1500);
@@ -17,8 +17,6 @@ overSurgery.controller('patientChatController', ['$scope', 'PatientService', '$i
             $scope.comments.forEach(function (comment) {
                 comment.created_at = moment(comment.created_at).format('HH:mm');
             });
-            // $window.scrollTo(0,document.body.scrollHeight);
-            // $window.scrollTo(0,document.getElementById('chatDiv').scrollHeight);
             var objDiv = document.getElementById('chatDiv');
             objDiv.scrollTop = objDiv.scrollHeight;
         });

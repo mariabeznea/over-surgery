@@ -46,8 +46,6 @@ overSurgery.controller('registerController', ['$scope', '$http', '$location', fu
             localStorage.email = response.data.user.email;
             localStorage.user_id = response.data.user.id;
 
-            // TODO: will need code for saving staff info on localstorage
-            // TODO: at the moment, only does for patient
             localStorage.first_name = response.data.patient.first_name;
             localStorage.last_name = response.data.patient.last_name;
 

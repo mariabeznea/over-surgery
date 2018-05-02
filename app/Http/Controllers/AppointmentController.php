@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\App;
 
 class AppointmentController extends Controller
 {
-    // Allowing only authenticated users to access appointments
-//    public function __construct()
-//    {
-//        $this->middleware('auth:api');
-//    }
     /**
      * Display all appointments
      **/
@@ -47,7 +42,7 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   //TODO: fix the storing of duplicated appointments;this doesn't work
+    {
         //Validating the request
         $validator = Validator::make($request-> all(), [
             'date' => 'required|date',
@@ -113,28 +108,7 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {  // JWTAuth::setToken('foo.bar.baz');
-        //$user = JWTAuth::authenticate();
-        //$user = Auth::User();
-        //$user = JWTAuth::parseToken()->authenticate();
-//        $user = JWTAuth::setToken($request->input('token'))->toUser();
-//        error_log('User is logged in'.$user);
-//            try {
-//                $appointment= Appointment::find($id);
-//                // Attempt to verify the credentials and create a token for the user
-//              //  if (Auth::check()) {
-//                    if (Auth::User()->id !== $appointment->patient_id) {
-//                        $error_message = 'There are no permissions to edit this.';
-//                        return response()->json(['success' => false, 'error' => $error_message], 401);
-//
-//                    }
-//            //    }
-//            } catch (JWTException $e) {
-//                // Something went wrong whilst trying to verify user
-//                $error_message = 'Something went wrong, please try again.';
-//                return response()->json(['success' => false, 'error' => $error_message], 401);
-//            }
-
+    {
         //Validating the request
         $validator = Validator::make($request-> all(), [
             'date' => 'required|date',

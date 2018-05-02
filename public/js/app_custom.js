@@ -90,8 +90,8 @@ overSurgery.run(['$rootScope', '$location', function ($rootScope, $location) {
             return;
         }
 
-        // About page is free for all
-        if (existsInPath('about')) {
+        // About page is free for both
+         if (existsInPath('about')) {
             return;
         }
 
