@@ -1,16 +1,5 @@
 overSurgery.controller('calendarController', ['$scope', 'PatientService', 'StaffService', 'uiCalendarConfig', function ($scope, PatientService, StaffService, uiCalendarConfig) {
     $scope.events = [];
-
-
-    // $scope.eventsF = function (start, end, timezone, callback) {
-    //     var s = new Date(start).getTime() / 1000;
-    //     var e = new Date(end).getTime() / 1000;
-    //     var m = new Date(start).getMonth();
-    //     var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
-    //     callback(events);
-    // };
-
-
     $scope.eventSources = [$scope.events];
     $scope.first_name = localStorage.first_name;
     $scope.staff = [];
@@ -203,7 +192,6 @@ overSurgery.controller('calendarController', ['$scope', 'PatientService', 'Staff
                 $scope.newAppointment.patient_name = $scope.patients.patient_name;
             }
             $scope.addEvent($scope.newAppointment);
-            //TODO: don't show the change of empty fields before reloading but show succesful msg
             setTimeout(location.reload.bind(location), 60);
             $scope.newAppointment = {};
         }, function (response) {
@@ -300,8 +288,6 @@ overSurgery.controller('calendarController', ['$scope', 'PatientService', 'Staff
 
         $("#editModal").modal();
     };
-    // var calendar = $('#calendar').fullCalendar('getCalendar');
-    /* config object */
    $scope.uiConfig = {
 
         calendar: {

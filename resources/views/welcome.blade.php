@@ -76,7 +76,7 @@
         <script src="/modules/directives/receptionistDirective/receptionistSidebarDirective.js"></script>
 
         <!-- Using google maps-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb6Q83mrU6QkSInT-LE_J63NVZIA1DT5k"
                 async defer>
         </script>
         <footer-directive></footer-directive>

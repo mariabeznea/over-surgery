@@ -8,7 +8,6 @@ use App\Patient;
 use App\Staff;
 
 use \stdClass;
-use Illuminate\Support\Facades\App;
 use Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -41,7 +40,6 @@ class AuthController extends Controller
             //'remember_token' => bcrypt($request->input('remember_token')),
         ]);
 
-        // TODO: only registering patients, needs code for staff
         $patient = Patient::create([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -65,8 +63,6 @@ class AuthController extends Controller
         // Save token
         $user = $this->saveToken(Auth::user()->id, $token->token);
 
-        // TODO: user can also be a staff but is not coded yet
-        // TODO: code is only prepared to send patients back, will need for staff too
         return response()->json([
             'success' => true,
             'token' => $token->token,
@@ -126,6 +122,9 @@ class AuthController extends Controller
         // Create anonymous object
         $result = new stdClass();
 
+        // Check if user with this email exists to save its curent token
+        $user = User::where('email', '=', $credentials['email'])->first();
+
         try {
             // Attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
@@ -138,6 +137,11 @@ class AuthController extends Controller
             $result->success = false;
             $result->message = 'Something went wrong, please try again.';
             return $result;
+        }
+
+        // If user already had a token, associate this old token
+        if ($user->remember_token) {
+            $token = $user->remember_token;
         }
 
         // Return successful result
@@ -162,18 +166,6 @@ class AuthController extends Controller
         ]);
     }
 
-//    public function logout(Request $request) {
-//        $this->validate($request, ['token' => 'required']);
-//
-//        try {
-//            JWTAuth::invalidate($request->input('token'));
-//            return response()->json(['success' => true, 'message'=> "You have successfully logged out."]);
-//        } catch (JWTException $e) {
-//            // something went wrong whilst attempting to encode the token
-//            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
-//        }
-//    }
-
     public function recover(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -195,13 +187,4 @@ class AuthController extends Controller
         ]);
     }
 
-    public function tokenExists(string $token) {
-        $user = User::where('remember_token', $token)->first();
-
-        if (!$user) {
-            return response()->json(['success' => false], 401);
-        }
-
-        return $user;
-    }
 }

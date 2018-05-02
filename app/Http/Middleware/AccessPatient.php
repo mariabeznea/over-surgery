@@ -37,7 +37,6 @@ class AccessPatient
         }
 
         // Check if patient id equals requested id (patients can only access themselves)
-
         $patient = Patient::where('user_id', '=', $user->id)->first();
         if ($patient->id == $request_id) {
             return $next($request);
