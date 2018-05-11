@@ -1,0 +1,12 @@
+#calendar {
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.fc-button-group, .fc button {
+    display: block !important;
+}
+
+.fc-time-grid .fc-event .fc-time:before {
+    content: none !important;
+}

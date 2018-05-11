@@ -1,0 +1,15 @@
+.form-control:focus {
+    border-color: #82CEAF;
+    box-shadow: 0 0 0 0.2rem rgba(130,206,175,.25);
+}
+
+.border-danger:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220,53,69,.15);
+}
+.select2-container .form-control{
+    height: 150px !important;
+}
+
+.table {
+    -webkit-border-vertical-spacing: 0px !important;
+}

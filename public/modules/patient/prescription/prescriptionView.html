@@ -1,0 +1,47 @@
+<side-bar first-name="{{first_name}}" prescriptions="true"></side-bar>
+
+<!-- Main content -->
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Prescriptions</h1>
+    </div>
+    <div class="col-md-12 mt-5">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Medication</th>
+                <th scope="col">Dose</th>
+                <th scope="col">Expiration</th>
+                <th scope="col">Renewable</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody class="table-light" >
+            <tr ng-repeat="prescription in prescriptions">
+                <th scope="row">{{prescription.medication}}</th>
+                <td>{{prescription.dose}} mg</td>
+                <td>{{prescription.expiration_date}}</td>
+                <td>
+                    <span ng-if="prescription.renewable == 1" data-feather="check" class="font-weight-bold ml-3 color-os-green-medium" ></span>
+                    <span ng-if="prescription.renewable != 1" data-feather="x" class="font-weight-bold ml-3 text-danger"></span>
+                </td>
+                <td>{{prescription.status}}</td>
+                <td>
+                    <button type="submit" ng-if="prescription.renewable == 1 && prescription.status == 'active' && prescription.clickable"
+                            class="btn btn-os-green" ng-click="extendPrescription(prescription)">
+                        Extend
+                    </button>
+                    <button type="submit" ng-if="prescription.renewable == 1 && !prescription.clickable"
+                            class="btn btn-secondary" disabled>
+                        Extend
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script>
+    feather.replace()
+</script>

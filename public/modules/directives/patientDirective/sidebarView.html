@@ -1,0 +1,58 @@
+<nav class="navbar navbar-dark sticky-top bg-os-green p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+        <img src="images\logo-menu.png" alt="" style="width: 190px">
+    </a>
+    <div class="justify-content-between px-3 ">
+        <span class="text-white  text-decoration-none mr-4" href="#">Hi, {{firstName}}</span>
+        <a class="text-white text-decoration-none mr-4" href="#!/account">
+            <span data-feather="user"></span>
+            Account</a>
+        <a class="text-white text-decoration-none" ng-click="logout()" href="#!/login" >Log out
+            <span data-feather="log-out"></span>
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" ng-class="{ 'active': dashboard }">
+                            <span data-feather="home"></span>
+                            Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/availability" ng-class="{ 'active': availability }">
+                            <i data-feather="clock"></i>
+                            Availability<span class="sr-only">(current)</span>
+                        </a>
+                        <a class="nav-link" href="#!/appointment" ng-class="{ 'active': appointments }">
+                            <span data-feather="calendar"></span>
+                            Appointments <span class="sr-only">(current)</span>
+                        </a>
+                        <a class="nav-link" href="#!/prescription" ng-class="{ 'active': prescriptions }">
+                            <span data-feather="file-text"></span>
+                            Prescriptions
+                        </a>
+                        <a class="nav-link" href="#!/test_result" ng-class="{ 'active': testResults }">
+                            <span data-feather="activity"></span>
+                            Tests
+                        </a>
+                        <a class="nav-link" href="#!/chat" ng-class="{ 'active': chat }">
+                            <span data-feather="message-circle"></span>
+                            Chat
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<script>
+    feather.replace()
+</script>

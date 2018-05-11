@@ -1,0 +1,64 @@
+<side-bar first-name="{{first_name}}" availability="true"></side-bar>
+
+<!-- Main content -->
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Find GP/nurse's availability</h1>
+            </div>
+    <div id="card-availability" class="card col-md-12" >
+        <div class="card-body">
+            <div class="form">
+                <div class="form-row mt-5 mb-5">
+                    <div class="col-md-2">
+                        <p class="col-form-label font-weight-bold">Search by</p>
+                    </div>
+                    <div class="col-xs-1">
+                        <label for="date-select" class="col-form-label">Date</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" ng-model="shift.date" class="form-control" id="date-select" required>
+                    </div>
+                    <div class="col-xs-1 offset-1">
+                        <label for="staff-select" class="col-form-label">Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="staff-select" class="form-control js-placeholder-single">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 " style="cursor: pointer;" ng-repeat="staff in staffOnShift" ng-click="clickStaff(staff.id)">
+                <hr>
+                <h5><b>{{staff.staff_type_id === 1 ? 'Doctor ' : 'Nurse '}}</b> {{staff.text}}</h5>
+               <div class="col-xs-12">
+                   <span data-feather="map-pin" class="mt-1"></span> {{staff.address}}
+               </div>
+                <div class="col-xs-12">
+                    <span data-feather="phone" class="font-weight-bold "></span> {{staff.phone_number}}
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+            <div class="col-md-6">
+                <table class="table" ng-if="staffAvailability.length">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col" style="width: 80px">Hrs</th>
+                        <th scope="col">Availability</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="slot in staffAvailability">
+                        <tr>
+                            <th  valign="top" scope="row">{{slot.start}}:00</th>
+                            <td>{{slot.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</main>
+<script>
+    feather.replace()
+</script>

@@ -1,0 +1,29 @@
+.btn-os-green {
+    color: white;
+    background: #41C48F;
+    border-color: #41C48F;
+}
+
+.btn-os-green:hover {
+    background: #30916A;
+    border-color: #30916A;
+}
+
+.btn-os-green:active {
+    background: #41C48F !important;
+    border-color: #41C48F !important;
+}
+
+.btn-os-green:focus {
+    box-shadow: 0 0 0 0.2rem rgba(130,206,175,.5); 
+}
+
+.btn-link {
+    text-decoration: none;
+    color: black;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+    color: #30916A;
+}
